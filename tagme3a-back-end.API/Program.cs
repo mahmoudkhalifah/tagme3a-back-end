@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
+using tagme3a_back_end.BL.Managers;
 using tagme3a_back_end.DAL.Data.Context;
+using tagme3a_back_end.DAL.RepoInterfaces;
+using tagme3a_back_end.DAL.Repos;
 
 namespace tagme3a_back_end.API
 {
@@ -20,6 +23,14 @@ namespace tagme3a_back_end.API
             builder.Services.AddDbContext<MainDbContext>(op =>
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
+            #region CategoriesRepoServices
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<ICategoryManager,CategoryManager>();
+            #endregion
+            #region BrandsRepoServices
+            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
 
             var app = builder.Build();
 

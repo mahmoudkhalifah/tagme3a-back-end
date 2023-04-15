@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Managers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\tagme3a-back-end.DAL\tagme3a-back-end.DAL.csproj" />
   </ItemGroup>
 
