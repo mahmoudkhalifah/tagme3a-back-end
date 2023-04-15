@@ -39,6 +39,14 @@ namespace tagme3a_back_end.API
             builder.Services.AddDbContext<MainDbContext>(op =>
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
+            #region CategoriesRepoServices
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<ICategoryManager,CategoryManager>();
+            #endregion
+            #region BrandsRepoServices
+            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
             #endregion
 
             #region Identity Managers
