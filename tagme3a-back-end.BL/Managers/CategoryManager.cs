@@ -43,6 +43,13 @@ namespace tagme3a_back_end.BL.Managers
                  category.CategoryId,category.Name,category.Description,category.Image!
                 );           
         }
+
+        public void GetProductsWithCategory(int id)
+        {
+            var Categories = categoryRepo.GetAll();
+
+        }
+
         public void Insert(CategoryInsertDTO categoryDTO)
         {
             byte[] imageBytes = Convert.FromBase64String(categoryDTO.Image);

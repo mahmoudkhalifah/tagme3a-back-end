@@ -14,5 +14,6 @@ namespace tagme3a_back_end.BL.Managers
         public void Insert(CategoryInsertDTO category);
         public void UpdateCategory(int id, CategoryInsertDTO category);
         public void DeleteCategory(int id);
+        public void GetProductsWithCategory(int id);
     }
 }
