@@ -85,10 +85,10 @@ namespace tagme3a_back_end.API
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy(Constants.Authorize.Admin, policy => policy
-                    .RequireClaim(ClaimTypes.Role, "Admin"));
+                    .RequireClaim(ClaimTypes.Role, Constants.Roles.Admin));
 
                 options.AddPolicy(Constants.Authorize.User, policy => policy
-                    .RequireClaim(ClaimTypes.Role,"Admin" ,"User"));
+                    .RequireClaim(ClaimTypes.Role, Constants.Roles.Admin, Constants.Roles.User));
             });
             #endregion
 
