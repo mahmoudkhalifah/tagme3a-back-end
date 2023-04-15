@@ -1,6 +1,10 @@
 
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using tagme3a_back_end.BL.Managers;
 using tagme3a_back_end.DAL.Data.Context;
+using tagme3a_back_end.DAL.RepoInterfaces;
+using tagme3a_back_end.DAL.Repos;
 
 namespace tagme3a_back_end.API
 {
@@ -21,6 +25,19 @@ namespace tagme3a_back_end.API
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
 
+            #region Repos
+
+            builder.Services.AddScoped<IOrderRepo, orderRepo>();
+ 
+            #endregion
+
+            #region Managers
+
+            builder.Services.AddScoped<IOrderManager, OrderManager>();
+            #endregion
+
+           
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,6 +50,8 @@ namespace tagme3a_back_end.API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+       
+
 
 
             app.MapControllers();
