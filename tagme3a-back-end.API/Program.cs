@@ -10,6 +10,8 @@ using tagme3a_back_end.DAL.Data.Context;
 using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
 using tagme3a_back_end.DAL.Data.Models;
+using tagme3a_back_end.BL.Managers.City;
+using tagme3a_back_end.BL.Managers.address;
 
 namespace tagme3a_back_end.API
 {
@@ -39,14 +41,7 @@ namespace tagme3a_back_end.API
             builder.Services.AddDbContext<MainDbContext>(op =>
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
-            #region CategoriesRepoServices
-            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-            builder.Services.AddScoped<ICategoryManager,CategoryManager>();
-            #endregion
-            #region BrandsRepoServices
-            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
-            builder.Services.AddScoped<IBrandManager, BrandManager>();
-            #endregion
+            
             #endregion
 
             #region Identity Managers
@@ -92,18 +87,49 @@ namespace tagme3a_back_end.API
             });
             #endregion
 
-            #region Repos
+            #region OrderRepo
 
             builder.Services.AddScoped<IOrderRepo, orderRepo>();
- 
+
             #endregion
 
-            #region Managers
+            #region CategoriesRepo & Manager
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<ICategoryManager, CategoryManager>();
+            #endregion
+
+            #region BrandsRepo & Manager
+            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
+
+            #region CityRepo
+
+            builder.Services.AddScoped<ICityRepo, CityRepo>();
+
+            #endregion
+
+            #region AddressRepo
+            builder.Services.AddScoped<IAddressRepo, AddressRepo>();
+
+            #endregion
+
+            #region OrderManager
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
             #endregion
 
-           
+            #region CityManager
+            builder.Services.AddScoped<ICityManager, CityManager>();
+
+            #endregion
+
+            #region AddressManager
+            builder.Services.AddScoped<IAddressManager, AddressManager>();
+
+            #endregion
+
+
 
             var app = builder.Build();
 
