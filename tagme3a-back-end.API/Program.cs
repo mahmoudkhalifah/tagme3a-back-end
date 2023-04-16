@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
+using tagme3a_back_end.BL.Managers.ProductManager;
 using tagme3a_back_end.DAL.Data.Context;
+using tagme3a_back_end.DAL.RepoInterfaces;
+using tagme3a_back_end.DAL.Repos;
 
 namespace tagme3a_back_end.API
 {
@@ -21,7 +24,15 @@ namespace tagme3a_back_end.API
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
 
+
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+
+
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+
             var app = builder.Build();
+
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

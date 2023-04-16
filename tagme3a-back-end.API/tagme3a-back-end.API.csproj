@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\tagme3a-back-end.BL\tagme3a-back-end.BL.csproj" />
   </ItemGroup>
 

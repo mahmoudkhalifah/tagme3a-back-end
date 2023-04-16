@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="RepoInterfaces\" />
-    <Folder Include="Repos\" />
   </ItemGroup>
 
   <ItemGroup>
