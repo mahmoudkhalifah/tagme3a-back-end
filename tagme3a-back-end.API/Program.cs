@@ -10,6 +10,7 @@ using tagme3a_back_end.DAL.Data.Context;
 using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
 using tagme3a_back_end.DAL.Data.Models;
+using tagme3a_back_end.BL.Managers.ProductManager;
 using tagme3a_back_end.BL.Managers.City;
 using tagme3a_back_end.BL.Managers.address;
 
@@ -42,6 +43,11 @@ namespace tagme3a_back_end.API
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
             
+            #endregion
+            #region BrandsRepoServices
+            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
             #endregion
 
             #region Identity Managers
@@ -107,6 +113,10 @@ namespace tagme3a_back_end.API
 
             builder.Services.AddScoped<ICityRepo, CityRepo>();
 
+            #endregion
+            #region UserProductInCartRepoServices
+            builder.Services.AddScoped<IUserProductInCartRepo, UserProductInCartRepo>();
+            builder.Services.AddScoped<IUserProductInCartManager, UserProductInCartManager>();
             #endregion
 
             #region AddressRepo

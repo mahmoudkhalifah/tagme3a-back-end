@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tagme3a_back_end.BL.DTOs.Brand;
+using tagme3a_back_end.BL.DTOs.Category;
+using tagme3a_back_end.BL.DTOs.Product;
 using tagme3a_back_end.DAL.Data.Models;
 using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
@@ -31,6 +33,30 @@ namespace tagme3a_back_end.BL.Managers
                 Description:b.Description,
                 Logo:b.Logo
                 ));
+        }
+
+        public BrandWithProductsDTO GetBrandWithProducts(int id)
+        {
+            Brand brandFromDb = brandRepo.GetWithProductsById(id);
+            if (brandFromDb == null) { return null!; }
+            return new BrandWithProductsDTO
+            {
+                BrandId = brandFromDb.BrandId,
+                Name = brandFromDb.Name,
+                Description = brandFromDb.Description,
+                Logo = brandFromDb.Logo,
+                products = brandFromDb.Products.Select(
+                    p => new ProductBrandCategoryDTO
+                    {
+                        Id = p.Id,
+                        Description = p.Description,
+                        Discount = p.Discount,
+                        Name = p.Name,
+                        Price = p.Price,
+                        UnitInStocks = p.UnitInStocks,
+                        ProductImages = p.ProductImages.Select(pi => Convert.ToBase64String(pi.Photo!)).ToList()
+                    })
+            };
         }
 
         public BrandDTO GetDetails(int id)

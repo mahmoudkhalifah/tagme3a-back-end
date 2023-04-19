@@ -31,6 +31,13 @@ namespace tagme3a_back_end.API.Controllers
             return categoryManager.GetAll().ToList();
         }
         [HttpGet]
+        [Route("CategoriesWithPrds/{id}")]
+        public ActionResult<CategoryWithProductsDTO> GetCategoriesWithProducts(int id)
+        {
+            if(categoryManager.GetProductsWithCategory(id) == null) { return NotFound(); }
+            return categoryManager.GetProductsWithCategory(id);
+        }
+        [HttpGet]
         [Route("{id}")]
         public ActionResult<List<CategoryDTO>> GetCategoryById(int id)
         {
