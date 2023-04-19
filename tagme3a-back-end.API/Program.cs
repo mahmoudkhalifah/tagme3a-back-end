@@ -13,6 +13,8 @@ using tagme3a_back_end.DAL.Data.Models;
 using tagme3a_back_end.BL.Managers.ProductManager;
 using tagme3a_back_end.BL.Managers.City;
 using tagme3a_back_end.BL.Managers.address;
+using tagme3a_back_end.BL.Managers.PCManager;
+using tagme3a_back_end.BL.Managers.ProductManager;
 
 namespace tagme3a_back_end.API
 {
@@ -98,7 +100,7 @@ namespace tagme3a_back_end.API
             builder.Services.AddScoped<IOrderRepo, orderRepo>();
 
             #endregion
-
+            
             #region CategoriesRepo & Manager
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
             builder.Services.AddScoped<ICategoryManager, CategoryManager>();
@@ -128,6 +130,10 @@ namespace tagme3a_back_end.API
 
             #endregion
 
+            #region PCRepo
+            builder.Services.AddScoped<IPCsRepo , PCsRepo>();
+            #endregion
+
             #region OrderManager
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
@@ -139,11 +145,26 @@ namespace tagme3a_back_end.API
             #endregion
 
             #region AddressManager
+
             builder.Services.AddScoped<IAddressManager, AddressManager>();
 
             #endregion
 
+            #region PCManager
 
+            builder.Services.AddScoped<IPCManager , PCManager>();
+
+            #endregion
+
+            #region ProductRepo
+            builder.Services.AddScoped<IProductRepo , ProductRepo>();
+            #endregion
+
+            #region ProductManager
+
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+
+            #endregion
 
             var app = builder.Build();
 
