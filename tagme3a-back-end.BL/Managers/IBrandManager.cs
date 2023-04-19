@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tagme3a_back_end.BL.DTOs.Brand;
+using tagme3a_back_end.BL.DTOs.Category;
 
 namespace tagme3a_back_end.BL.Managers
 {
@@ -15,5 +16,6 @@ namespace tagme3a_back_end.BL.Managers
         public void Insert(BrandInsertDTO brand);
         public void UpdateBrand(int id, BrandInsertDTO brand);
         public void DeleteBrand(int id);
+        public BrandWithProductsDTO GetBrandWithProducts(int id);
     }
 }
