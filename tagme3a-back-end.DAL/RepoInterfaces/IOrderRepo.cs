@@ -26,6 +26,7 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
         //Product -Address -User
         Order? GetWithMoreDetails(int id);
 
+       IEnumerable<Order> GetordersByUserID(string UserId);
 
 
     }
