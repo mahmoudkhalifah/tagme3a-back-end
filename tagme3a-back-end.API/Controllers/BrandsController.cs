@@ -37,6 +37,7 @@ namespace tagme3a_back_end.API.Controllers
             if (brand == null) { return NotFound(); }
             return Ok(brand);
         }
+
         [HttpDelete]
         [Route("{id}")]
         public ActionResult DeleteById(int id)
@@ -59,6 +60,7 @@ namespace tagme3a_back_end.API.Controllers
             }
             brandManager.UpdateBrand(id, dto);
             return NoContent();
+
         }
     }
 }

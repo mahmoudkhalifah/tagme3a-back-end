@@ -19,14 +19,22 @@ namespace tagme3a_back_end.API.Controllers
         [HttpGet]
         public ActionResult<List<OrderReadDTO>> GetAll()
         {
-            return _orderManager.GetAll().ToList();
+            var Orders= _orderManager.GetAll().ToList();
+            if(Orders == null) { return NoContent(); }
+            return Ok(Orders);
         }
 
         [HttpGet]
         [Route("CityName")]
         public ActionResult<CitynameOrderReadDTO>  GetCityName(int id)
         {
-            return _orderManager.GetWithAddressWithCityId(id);
+            var Orders= _orderManager.GetWithAddressWithCityId(id);
+            if (Orders != null)
+            {
+                return Ok(Orders);
+            }
+            else
+                return NotFound();
         }
 
 
@@ -34,31 +42,78 @@ namespace tagme3a_back_end.API.Controllers
         [Route("GetWithProduct")]
         public ActionResult<List<ProductOrdersReadInOrderDTO>> GetProductOrders(int id)
         {
-            return _orderManager.GetProductOrdersReadInOrder(id).ToList();
+            var Orders= _orderManager.GetProductOrdersReadInOrder(id).ToList();
+            if(Orders!=null)
+            {
+                return Ok(Orders);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
 
         [HttpGet]
         [Route("GetWithUSER,PRODUCT,CITY")]
-
         public ActionResult<OrderReadDetailsDTO> GetOrderReadDetails(int id)
         {
-            return Ok(_orderManager.GetOrderReadDetails(id));
+            var Orders=_orderManager.GetOrderReadDetails(id);
+            if(Orders!=null)
+            { return Ok(Orders); }
+            else { return NotFound(); }
         }
 
-        [HttpPost]
-        public void Post (OrderPostDTO orderPostDTO)
+        [HttpGet]
+        [Route("OrderCityNameproducts")]
+        public ActionResult<OrderCityNameproducts> GetCityNameproducts(int id)
         {
-            // int AddressID , decimal Bill ,DateTime OrderDate,DateTime ShippingDate, DateTime ArrivalDate,OrderState OrderState ,PayMethod PayMethod,int UserId
-           
-            _orderManager.postOrder(orderPostDTO.AddressID, orderPostDTO.Bill,orderPostDTO.OrderDate,orderPostDTO.ShippingDate,orderPostDTO.ArrivalDate,orderPostDTO.OrderState,orderPostDTO.PayMethod,orderPostDTO.UserId);
+            var Orders = _orderManager.CityNameproducts(id);
+            if (Orders != null)
+            { return Ok(Orders); }
+            else { return NotFound(); }
+
         }
+
+        //Details
+        [HttpGet]
+        [Route("GetOrderByID")]
+        public ActionResult<GetOrderByID> GetGetOrderByID(int id)
+        {
+            var Order=_orderManager.GetOrderById(id);   
+            if(Order==null) return NotFound();
+            return Ok(Order);
+        }
+
+        //For user 
+
+        [HttpGet]
+        [Route("OrderByUserID")]
+        public ActionResult<List<OrderCityNameproducts>> GetAllForUser(string ID)
+        {
+            var Orders = _orderManager.OrderByUserID(ID).ToList();
+            if (Orders == null) { return NoContent(); }
+            return Ok(Orders);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Post (OrderPostDTO orderPost)
+        {           
+            _orderManager.postOrder(orderPost);
+            return NoContent();
+        }
+
 
         [HttpPut]
         public IActionResult Put(int id, OrderPutDTO orderPutDTO)
         {
             return Ok(_orderManager.UpdateOrder(id, orderPutDTO));
         }
+
+
 
     }
 }
