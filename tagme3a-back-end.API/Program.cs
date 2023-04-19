@@ -48,7 +48,7 @@ namespace tagme3a_back_end.API
             builder.Services.AddScoped<IBrandRepo, BrandRepo>();
             builder.Services.AddScoped<IBrandManager, BrandManager>();
             #endregion
-            #endregion
+          
 
             #region Identity Managers
             builder.Services.AddIdentity<User, IdentityRole>(options =>
