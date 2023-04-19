@@ -10,6 +10,7 @@ using tagme3a_back_end.DAL.Data.Context;
 using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
 using tagme3a_back_end.DAL.Data.Models;
+using tagme3a_back_end.BL.Managers.ProductManager;
 using tagme3a_back_end.BL.Managers.City;
 using tagme3a_back_end.BL.Managers.address;
 using tagme3a_back_end.BL.Managers.PCManager;
@@ -45,6 +46,11 @@ namespace tagme3a_back_end.API
             );
             
             #endregion
+            #region BrandsRepoServices
+            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
+          
 
             #region Identity Managers
             builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -104,11 +110,19 @@ namespace tagme3a_back_end.API
             builder.Services.AddScoped<IBrandRepo, BrandRepo>();
             builder.Services.AddScoped<IBrandManager, BrandManager>();
             #endregion
+            #region BrandsRepo & Manager
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+            #endregion
 
             #region CityRepo
 
             builder.Services.AddScoped<ICityRepo, CityRepo>();
 
+            #endregion
+            #region UserProductInCartRepoServices
+            builder.Services.AddScoped<IUserProductInCartRepo, UserProductInCartRepo>();
+            builder.Services.AddScoped<IUserProductInCartManager, UserProductInCartManager>();
             #endregion
 
             #region AddressRepo

@@ -28,12 +28,20 @@ namespace tagme3a_back_end.DAL.Repos
 
         public IEnumerable<Category> GetAll()
         {
-            return _context.Set<Category>();
+            return _context.Set<Category>().Include(s=>s.Products);
         }
 
         public Category GetDetails(int id)
         {
             return _context.Categories.Find(id)!;
+        }
+
+        public Category GetWithProductsById(int id)
+        {
+            return _context.Set<Category>()
+                     .Include(d => d.Products)
+                     .ThenInclude(i=>i.ProductImages)
+                     .FirstOrDefault(d => d.CategoryId == id)!;
         }
 
         public void Insert(Category category)

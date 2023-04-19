@@ -5,16 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tagme3a_back_end.DAL.Data.Models
+namespace tagme3a_back_end.BL.DTOs.UserProductInCart
 {
-    public class UserProductInCart
+    public class UserProductInCartInsertDTO
     {
-        public int ProductId{ get; set; }
-        public virtual Product? Product { get; set; }
-
-        [MaxLength(450)]
+        public int ProductId { get; set; }
         public string UserId { get; set; } = string.Empty;
-        public virtual User? User { get; set; }
         public int Quantity { get; set; }
     }
 }
