@@ -108,6 +108,10 @@ namespace tagme3a_back_end.API
             builder.Services.AddScoped<IBrandRepo, BrandRepo>();
             builder.Services.AddScoped<IBrandManager, BrandManager>();
             #endregion
+            #region BrandsRepo & Manager
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+            #endregion
 
             #region CityRepo
 
