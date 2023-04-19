@@ -10,6 +10,7 @@ using tagme3a_back_end.DAL.Data.Context;
 using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
 using tagme3a_back_end.DAL.Data.Models;
+using tagme3a_back_end.BL.Managers.ProductManager;
 
 namespace tagme3a_back_end.API
 {
@@ -46,6 +47,14 @@ namespace tagme3a_back_end.API
             #region BrandsRepoServices
             builder.Services.AddScoped<IBrandRepo, BrandRepo>();
             builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
+            #region ProductsRepoServices
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+            #endregion
+            #region UserProductInCartRepoServices
+            builder.Services.AddScoped<IUserProductInCartRepo, UserProductInCartRepo>();
+            builder.Services.AddScoped<IUserProductInCartManager, UserProductInCartManager>();
             #endregion
             #endregion
 

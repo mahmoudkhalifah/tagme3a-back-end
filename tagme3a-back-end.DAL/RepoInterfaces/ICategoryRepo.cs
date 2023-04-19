@@ -15,6 +15,7 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
         public void Insert(Category category);
         public void UpdateCategory(int id, Category category);
         public void DeleteCategory(int id);
+        public Category GetWithProductsById(int id);
         int SaveChanges();
     }
 }

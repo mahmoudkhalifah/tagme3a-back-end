@@ -22,8 +22,5 @@ namespace tagme3a_back_end.DAL.Data.Models
         public string ReviewBody = string.Empty;
         [Range(0,5)]
         public int Rate { get; set; }
-
-
-
     }
 }
