@@ -14,6 +14,12 @@ namespace tagme3a_back_end.API.Controllers
         {
             _productManager = productManager;
         }
+        [HttpGet]
+        [Route("catbrandprds")]
+        public ActionResult<List<ProductReadDto>> getAllProducts(int brandId,int categoryId)
+        {
+            return _productManager.GetAllProduct(brandId, categoryId).ToList();
+        }
 
         [HttpGet]
         public ActionResult <List<ProductReadDto>> getAllProducts()
@@ -54,7 +60,6 @@ namespace tagme3a_back_end.API.Controllers
             {
                 _productManager.UpdateProduct(product, id);
                 return NoContent();
-
             }
             else
             {

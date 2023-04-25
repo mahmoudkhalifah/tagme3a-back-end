@@ -24,7 +24,7 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
         {
             Product prd = new Product()
             {
-               Id = product.Id,
+               //Id = product.Id,
                Name = product.Name,
                CategoryID = (int)product.CategoryID!,
                BrandID  = product.BrandID,
@@ -57,11 +57,29 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
             {
                 Id = p.Id,
                 Name = p.Name,
-                CategoryID = p.CategoryID,
+                CategoryID = p.CategoryID,//
                 Description = p.Description,
                 Discount = p.Discount,
                 Price = p.Price,
-                BrandID = p.BrandID,
+                BrandID = p.BrandID,//
+                ProductImages = p.ProductImages.Select(pi => Convert.ToBase64String(pi.Photo)).ToList(),
+                UnitInStocks = p.UnitInStocks
+            });
+        }
+
+        public IEnumerable<ProductReadDto> GetAllProduct(int brandId, int categoryId)
+        {
+            var prds = _productRepo.GetAllProducts();
+            return prds.Where(p => p.CategoryID == categoryId && p.BrandID == brandId)
+                .Select(p => new ProductReadDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CategoryID = p.CategoryID,//
+                Description = p.Description,
+                Discount = p.Discount,
+                Price = p.Price,
+                BrandID = p.BrandID,//
                 ProductImages = p.ProductImages.Select(pi => Convert.ToBase64String(pi.Photo)).ToList(),
                 UnitInStocks = p.UnitInStocks
             });
@@ -77,10 +95,10 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
                 {
                     Id = prd.Id,
                     Name = prd.Name,
-                    CategoryID = prd.CategoryID,
+                    CategoryID = prd.CategoryID,//
                     Description = prd.Description,
                     Discount = prd.Discount,
-                    BrandID = prd.BrandID,
+                    BrandID = prd.BrandID,//
                     Price = prd.Price,
                     UnitInStocks = prd.UnitInStocks,
                     ProductImages = prd.ProductImages
@@ -109,14 +127,16 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
                 prd.UnitInStocks = product.UnitInStocks;
                 prd.BrandID = product.BrandID;
 
- 
+                //prd.ProductImages = product.
                 if (product.ProductImages != null && product.ProductImages.Any())
                 {
+                    var counter = 0;
                     foreach (var images in product.ProductImages)
                     {
                         byte[] data = Convert.FromBase64String(images);
                         var image = new ProductImage { Photo = data };
-                        prd.ProductImages.Add(image);
+                        prd.ProductImages.ElementAt(counter).Photo = data;
+                        counter++;
                     }
                 }
 
