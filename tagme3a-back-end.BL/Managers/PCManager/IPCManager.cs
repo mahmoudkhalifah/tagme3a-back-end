@@ -16,8 +16,12 @@ namespace tagme3a_back_end.BL.Managers.PCManager
         public bool InsertPC(PCInsertDTO pc);
         public bool InsertPrdPC(PrdPCInsertDTO pc);
         public bool UpdatePC(int id, PCInsertDTO pc);
-        //public bool UpdatePrdPC(int id, PrdPCInsertDTO pc);
-        public bool DeletePC(int id);
+        public bool UpdatePrdPC(int id, PrdPCUpdateDTO pc);
+        public bool DeletePrdPC(int id, PrdPcDeleteDTO Prdpc);
+
+        public IEnumerable<PrdPCInsertDTO> getAllPrdPc();
+
+		public bool DeletePC(int id);
 
     }
 }
