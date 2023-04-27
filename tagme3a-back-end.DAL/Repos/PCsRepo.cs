@@ -106,18 +106,16 @@ namespace tagme3a_back_end.DAL.Repos
             
         }
 
-        public bool UpdatePrdPC(int id  , ProductPC pc)
+        public bool UpdatePrdPC(int id  , ProductPC Prdpc)
         {
-            var prd = _context.ProductPCs.Find(id);
+            var prd = _context.ProductPCs.FirstOrDefault(e=>e.PCId == id && e.ProductId == Prdpc.ProductId);
             
             if(prd == null)
                 return false;
 
             try
             {
-                prd.ProductId = pc.ProductId;
-                prd.PCId = pc.PCId;
-                prd.Quantity = pc.Quantity;
+                prd.Quantity = Prdpc.Quantity;
                 SaveChanges();
                 return true;
             }
@@ -126,5 +124,32 @@ namespace tagme3a_back_end.DAL.Repos
                 return false;
             }
         }
-    }
+
+
+		public bool DeletePrdPC(int id, ProductPC Prdpc)
+		{
+			var prd = _context.ProductPCs.FirstOrDefault(e => e.PCId == id && e.ProductId == Prdpc.ProductId);
+
+			if (prd == null)
+				return false;
+
+			try
+			{
+                _context.Remove(prd);
+				SaveChanges();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+
+        public IEnumerable<ProductPC> getAllPrdPc()
+        {
+            return _context.ProductPCs.ToList();
+        }
+	}
+
 }
