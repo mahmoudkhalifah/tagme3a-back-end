@@ -9,6 +9,7 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
 {
     public interface IProductManager
     {
+         IEnumerable<ProductReadDto> GetAllProduct(int brandId,int categoryId);
         IEnumerable<ProductReadDto> GetAllProduct();
 
         public void AddProduct (ProductPostDto product);

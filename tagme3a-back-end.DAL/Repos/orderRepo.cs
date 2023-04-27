@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -38,7 +40,7 @@ namespace tagme3a_back_end.DAL.Repos
         public Order? GetOrder(int id)
         {
 
-            return _context.Orders.Find(id);
+            return _context.Orders.Where(e=>e.Id==id).FirstOrDefault();
 
         }
 
@@ -50,21 +52,21 @@ namespace tagme3a_back_end.DAL.Repos
 
         public void Update(int id, Order updatedOrder)
         {
-           var order = _context.Orders.Find(id);
-          if(order != null)
+            var order = _context.Orders.Find(id);
+            if (order != null)
             {
                 order.AddressID = updatedOrder.AddressID;
                 order.UserId = updatedOrder.UserId;
-                order.ArrivalDate=updatedOrder.ArrivalDate;
-                order.Bill=updatedOrder.Bill;
+                order.ArrivalDate = updatedOrder.ArrivalDate;
+                order.Bill = updatedOrder.Bill;
                 order.OrderState = updatedOrder.OrderState;
                 order.PayMethod = updatedOrder.PayMethod;
-                order.ShippingDate=updatedOrder.ShippingDate;
-                order.OrderDate=updatedOrder.OrderDate;
-                order.ProductOrders=updatedOrder.ProductOrders;
+                order.ShippingDate = updatedOrder.ShippingDate;
+                order.OrderDate = updatedOrder.OrderDate;
+                order.ProductOrders = updatedOrder.ProductOrders;
                 _context.SaveChanges();
-            }
 
+            }
         }
         public Order? GetWithAddressWithCityId(int id)
         {
@@ -89,6 +91,14 @@ namespace tagme3a_back_end.DAL.Repos
                        .ThenInclude(p => p.Product)
                        .Include(e=>e.User)
                    .FirstOrDefault(d => d.Id == id);
+        }
+
+
+        public IEnumerable<Order> GetordersByUserID(string UserId)
+        {
+            return _context.Orders.Include(e => e.Address).ThenInclude(p=>p.City).
+                Include(e => e.ProductOrders).ThenInclude(p=>p.Product).Include(e => e.User).Where(d=>d.UserId==UserId).ToList();
+
         }
     }
 }

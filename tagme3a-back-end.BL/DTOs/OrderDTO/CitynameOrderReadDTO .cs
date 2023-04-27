@@ -19,8 +19,8 @@ namespace tagme3a_back_end.BL.DTOs.OrderDTO
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public DateTime? ShippingDate { get; set; }
         public DateTime? ArrivalDate { get; set; }
-        public OrderState OrderState { get; set; }
-        public PayMethod PayMethod { get; set; } 
+        public string  OrderState { get; set; }
+        public string PayMethod { get; set; } 
         public string UserName { get; set; } = string.Empty;
 
     }

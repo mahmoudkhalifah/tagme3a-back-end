@@ -21,6 +21,40 @@ namespace tagme3a_back_end.BL.Managers
             _orderRepo = orderRepo;
         }
 
+        public OrderCityNameproducts CityNameproducts(int id)
+        {
+            Order? OrderFromDb = _orderRepo.GetWithMoreDetails(id);
+            if(OrderFromDb is null)
+            {
+                return null;
+            }
+            return new OrderCityNameproducts
+            {
+                Id = OrderFromDb.Id,
+                Bill = OrderFromDb.Bill,
+                OrderDate = OrderFromDb.OrderDate,
+                ShippingDate = OrderFromDb.ShippingDate,
+                ArrivalDate = OrderFromDb.ArrivalDate,
+                OrderState =OrderFromDb.OrderState.ToString() ,
+                PayMethod = OrderFromDb.PayMethod.ToString(),
+                CityName = OrderFromDb.Address.City.Name,
+                Fname = OrderFromDb.User.Fname,
+                Lname = OrderFromDb.User.Lname,
+                AddressId=OrderFromDb.AddressID,
+                UserId = OrderFromDb.UserId
+                ,
+                ProductOrdersReadInOrder = OrderFromDb.ProductOrders
+                .Select(p => new ProductOrdersReadInOrderDTO
+                {
+                    ProductName = p.Product.Name,
+                    Quantiy = p.Quantiy
+
+
+                })
+
+            };
+        }
+
         public IEnumerable<OrderReadDTO> GetAll()
         {
             var Orders = _orderRepo.GetAll();
@@ -42,8 +76,8 @@ namespace tagme3a_back_end.BL.Managers
                     OrderDate = d.OrderDate,
                     ShippingDate = d.ShippingDate,
                     ArrivalDate = d.ArrivalDate,
-                    OrderState = d.OrderState,
-                    PayMethod = d.PayMethod,
+                    OrderState = d.OrderState.ToString(),
+                    PayMethod = d.PayMethod.ToString(),
                     UserName = d.User.UserName
                 }).ToList();
 
@@ -68,8 +102,8 @@ namespace tagme3a_back_end.BL.Managers
                 OrderDate = OrderFromDb.OrderDate,
                 ShippingDate = OrderFromDb.ShippingDate,
                 ArrivalDate = OrderFromDb.ArrivalDate,
-                OrderState = OrderFromDb.OrderState,
-                PayMethod = OrderFromDb.PayMethod,
+                OrderState = OrderFromDb.OrderState.ToString(),
+                PayMethod = OrderFromDb.PayMethod.ToString(),
                 Address = new AddressReadinOrderDTO
                 {
                     CityName = OrderFromDb.Address.City.Name,
@@ -97,7 +131,7 @@ namespace tagme3a_back_end.BL.Managers
             };
         }
 
-        public List<ProductOrdersReadInOrderDTO> GetProductOrdersReadInOrder(int id)
+        public List<ProductOrdersReadInOrderDTO>? GetProductOrdersReadInOrder(int id)
         {
             var Order = _orderRepo.GetWithProduct(id);
             if (Order == null)
@@ -112,9 +146,8 @@ namespace tagme3a_back_end.BL.Managers
              }).ToList();
 
             return productOrders;
-
-
         }
+
 
         public CitynameOrderReadDTO GetWithAddressWithCityId(int id)
         {
@@ -132,26 +165,25 @@ namespace tagme3a_back_end.BL.Managers
                 OrderDate = OrderFromDb.OrderDate,
                 ShippingDate = OrderFromDb.ShippingDate,
                 ArrivalDate = OrderFromDb.ArrivalDate,
-                OrderState = OrderFromDb.OrderState,
-                PayMethod = OrderFromDb.PayMethod,
+                OrderState = OrderFromDb.OrderState.ToString(),
+                PayMethod = OrderFromDb.PayMethod.ToString(),
                 UserName = OrderFromDb.User.UserName,
                 CityName = OrderFromDb.Address.City.Name,      
             };
         }
 
-        public void postOrder(int AddressID, decimal Bill, DateTime OrderDate, DateTime ShippingDate, DateTime ArrivalDate, OrderState OrderState, PayMethod PayMethod, string UserId)
+        public void postOrder(OrderPostDTO dTO)
         {
             Order order = new Order()
             {
-               AddressID=AddressID,
-               Bill=Bill,
-               OrderDate=OrderDate,
-               ShippingDate=ShippingDate,
-               ArrivalDate=ArrivalDate,
-               OrderState = OrderState,
-               PayMethod = PayMethod,
-               UserId = UserId
-
+               AddressID= dTO.AddressID,
+               Bill= dTO.Bill,
+               OrderDate= dTO.OrderDate,
+               ShippingDate= dTO.ShippingDate,
+               ArrivalDate= dTO.ArrivalDate,
+               OrderState = dTO.OrderState,
+               PayMethod = dTO.PayMethod,
+               UserId = dTO.UserId
             };
             _orderRepo.Insert(order);
         }
@@ -174,6 +206,59 @@ namespace tagme3a_back_end.BL.Managers
                return orderPut;
             }
             return null;
+        }
+
+        public IEnumerable<OrderCityNameproducts> OrderByUserID(string ID)
+        {
+            var Orders = _orderRepo.GetordersByUserID(ID);
+            if (Orders == null)
+            {
+                return null;
+            }
+            return Orders.Select(OrderFromDb => new OrderCityNameproducts
+            {
+                Id = OrderFromDb.Id,
+                Bill = OrderFromDb.Bill,
+                OrderDate = OrderFromDb.OrderDate,
+                ShippingDate = OrderFromDb.ShippingDate,
+                ArrivalDate = OrderFromDb.ArrivalDate,
+                OrderState = OrderFromDb.OrderState.ToString(),
+                PayMethod = OrderFromDb.PayMethod.ToString(),
+                CityName = OrderFromDb.Address.City.Name,
+                Fname = OrderFromDb.User.Fname,
+                Lname = OrderFromDb.User.Lname
+                ,
+                ProductOrdersReadInOrder = OrderFromDb.ProductOrders
+                .Select(p => new ProductOrdersReadInOrderDTO
+                {
+                    ProductName = p.Product.Name,
+                    Quantiy = p.Quantiy
+
+
+                })
+
+            }).ToList();
+        }
+    
+       //Details
+       public GetOrderByID GetOrderById(int id)
+        {
+            var order = _orderRepo.GetOrder(id);
+            if (order == null) return null;
+         
+            return new GetOrderByID
+            {
+                ID=order.Id,
+                AddressID = order.AddressID,
+                Bill = order.Bill,
+                OrderDate = order.OrderDate,
+                ShippingDate = (DateTime)order.ShippingDate,
+                ArrivalDate = (DateTime)order.ArrivalDate,
+                OrderState = order.OrderState.ToString(),
+                PayMethod = order.PayMethod.ToString(),
+                UserId= order.UserId
+            };
+
         }
     }
 }
