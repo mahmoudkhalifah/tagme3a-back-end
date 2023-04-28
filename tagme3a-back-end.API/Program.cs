@@ -15,6 +15,8 @@ using tagme3a_back_end.BL.Managers.City;
 using tagme3a_back_end.BL.Managers.address;
 using tagme3a_back_end.BL.Managers.PCManager;
 using tagme3a_back_end.BL.Managers.ProductManager;
+using tagme3a_back_end.BL.Managers.ProductManager;
+using tagme3a_back_end.BL.Managers.DashboardManager;
 
 namespace tagme3a_back_end.API
 {
@@ -137,6 +139,10 @@ namespace tagme3a_back_end.API
             #region OrderManager
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
+            
+            builder.Services.AddScoped<IDashboardManager, DashboardManager>();
+
+
             #endregion
 
             #region CityManager
@@ -157,12 +163,12 @@ namespace tagme3a_back_end.API
             #endregion
 
             #region ProductRepo
-            builder.Services.AddScoped<IProductRepo , ProductRepo>();
+            
             #endregion
 
             #region ProductManager
 
-            builder.Services.AddScoped<IProductManager, ProductManager>();
+          
 
             #endregion
 

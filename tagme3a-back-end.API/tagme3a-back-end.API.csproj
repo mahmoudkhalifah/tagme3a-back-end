@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\tagme3a-back-end.BL\tagme3a-back-end.BL.csproj" />
+    <ProjectReference Include="..\tagme3a-back-end.DAL\tagme3a-back-end.DAL.csproj" />
   </ItemGroup>
 
 </Project>
