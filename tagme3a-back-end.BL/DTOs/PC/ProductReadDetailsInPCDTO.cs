@@ -8,6 +8,7 @@ namespace tagme3a_back_end.BL.DTOs.PC
 {
     public class ProductReadDetailsInPCDTO
     {
+        public int ProductId { get; set; }
         public int quantitiy { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

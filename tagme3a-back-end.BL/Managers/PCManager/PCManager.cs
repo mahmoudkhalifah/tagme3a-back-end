@@ -61,6 +61,7 @@ namespace tagme3a_back_end.BL.Managers.PCManager
                 TotalPrice = pc.TotalPrice,
                 products = pc.ProductsPC.Select(p => new ProductReadDetailsInPCDTO
                 {
+                    ProductId = p.ProductId,
                     Name = p.Product?.Name ?? "",
                     Description = p.Product?.Description ?? "",
                     price = p.Product?.Price ?? 0,
@@ -90,7 +91,7 @@ namespace tagme3a_back_end.BL.Managers.PCManager
         public void CalcPrice(decimal price , int quantity,int pcId)
         {
             var pc = _pcRepo.GetDetails(pcId);
-                decimal result = pc.TotalPrice;
+                decimal result = pc?.TotalPrice??0;
                 result += (price * quantity);
                 pc.TotalPrice = result;
                 _pcRepo.UpdatePC(pc.PCId, pc);
@@ -99,7 +100,7 @@ namespace tagme3a_back_end.BL.Managers.PCManager
 
         public bool InsertPrdPC(PrdPCInsertDTO prdP)
         {
-
+            var prdPc = _pcRepo.getAllPrdPc().Where(p=>p.PCId == prdP.PCId && p.ProductId == prdP.ProductId).FirstOrDefault(); 
             ProductPC Pc = new ProductPC()
             {
                 ProductId = prdP.ProductId,
@@ -107,9 +108,11 @@ namespace tagme3a_back_end.BL.Managers.PCManager
                 Quantity = prdP.Quantity
             };
             var prd = _product.GetProductById(prdP.ProductId);
-            CalcPrice(prd.Price,prdP.Quantity, prdP.PCId);
 
-            return _pcRepo.InsertPrdPC(Pc);
+			//CalcPrice(prd.Price, prdP.Quantity - prdPc?.Quantity ?? 0, prdP.PCId);
+			CalcPrice(prd.Price, prdP.Quantity, prdP.PCId);
+
+			return _pcRepo.InsertPrdPC(Pc);
         }
 
         public bool DeletePC(int id)
@@ -135,14 +138,15 @@ namespace tagme3a_back_end.BL.Managers.PCManager
 		public bool UpdatePrdPC(int id, PrdPCUpdateDTO pc)
 		{
             var curPC = _pcRepo.GetDetails(id);
+            var prdPc = _pcRepo.getAllPrdPc().Where(p => p.PCId == id && p.ProductId == pc.ProductId).FirstOrDefault();
             ProductPC Pc = new ProductPC
             {
                 Quantity = pc.Quantity,
                 ProductId = pc.ProductId
             };
 			var prd = _product.GetProductById(pc.ProductId);
-			CalcPrice(prd.Price, pc.Quantity, id);
 
+            CalcPrice(prd.Price, pc.Quantity - prdPc.Quantity, id);
             return _pcRepo.UpdatePrdPC(id, Pc);
 		}
 
@@ -165,9 +169,10 @@ namespace tagme3a_back_end.BL.Managers.PCManager
 			//	ProductId = Prdpc.ProductId
 			//};
 			var prd = _product.GetProductById(Prdpc.ProductId);
+
+
             UpdatePrice(prd.Price,PrdToDel.Quantity , id);
 
-          //  return true;
 			return _pcRepo.DeletePrdPC(id, PrdToDel);
 		}
 
