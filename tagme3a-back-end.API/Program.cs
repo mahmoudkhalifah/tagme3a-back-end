@@ -10,6 +10,8 @@ using tagme3a_back_end.DAL.Data.Context;
 using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
 using tagme3a_back_end.DAL.Data.Models;
+using tagme3a_back_end.BL.Managers.ProductManager;
+using tagme3a_back_end.BL.Managers.DashboardManager;
 
 namespace tagme3a_back_end.API
 {
@@ -95,15 +97,25 @@ namespace tagme3a_back_end.API
             #region Repos
 
             builder.Services.AddScoped<IOrderRepo, orderRepo>();
- 
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
+            builder.Services.AddScoped<IDashboardRepo, DashboardRepo>();
+
+
+
+
+
             #endregion
 
             #region Managers
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+            builder.Services.AddScoped<IDashboardManager, DashboardManager>();
+
+
             #endregion
 
-           
+
 
             var app = builder.Build();
 
