@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.DTOs.Brand;
+using tagme3a_back_end.BL.DTOs.Category;
 using tagme3a_back_end.BL.Managers;
 
 namespace tagme3a_back_end.API.Controllers
@@ -29,6 +30,15 @@ namespace tagme3a_back_end.API.Controllers
         {
             return brandManager.GetAll().ToList();
         }
+
+        [HttpGet]
+        [Route("BrandsWithPrds/{id}")]
+        public ActionResult<BrandWithProductsDTO> GetBrandsWithProducts(int id)
+        {
+            if(brandManager.GetBrandWithProducts(id) == null) { return NotFound(); }
+            return brandManager.GetBrandWithProducts(id);
+        }
+
         [HttpGet]
         [Route("{id}")]
         public ActionResult<List<BrandDTO>> GetCategoryById(int id)
@@ -37,6 +47,7 @@ namespace tagme3a_back_end.API.Controllers
             if (brand == null) { return NotFound(); }
             return Ok(brand);
         }
+
         [HttpDelete]
         [Route("{id}")]
         public ActionResult DeleteById(int id)
@@ -59,6 +70,7 @@ namespace tagme3a_back_end.API.Controllers
             }
             brandManager.UpdateBrand(id, dto);
             return NoContent();
+
         }
     }
 }

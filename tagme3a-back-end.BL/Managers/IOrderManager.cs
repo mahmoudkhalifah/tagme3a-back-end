@@ -19,12 +19,15 @@ namespace tagme3a_back_end.BL.Managers
 
         OrderReadDetailsDTO GetOrderReadDetails(int id);
 
-        void postOrder(int AddressID, decimal Bill, DateTime OrderDate, DateTime ShippingDate, DateTime ArrivalDate, OrderState OrderState, PayMethod PayMethod, String UserId);
+        void postOrder(OrderPostDTO orderPost);
 
         OrderPutDTO UpdateOrder(int id, OrderPutDTO orderPut);
 
 
+        OrderCityNameproducts CityNameproducts(int id);
+        IEnumerable<OrderCityNameproducts> OrderByUserID(string ID);
 
+        public GetOrderByID GetOrderById(int id);
     }
 
 }

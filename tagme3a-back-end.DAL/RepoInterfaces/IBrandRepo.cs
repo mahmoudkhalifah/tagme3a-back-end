@@ -14,6 +14,7 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
         public void Insert(Brand brand);
         public void UpdateBrand(int id, Brand brand);
         public void DeleteBrand(int id);
+        public Brand GetWithProductsById(int id);
         int SaveChanges();
 
     }

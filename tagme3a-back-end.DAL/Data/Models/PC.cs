@@ -14,5 +14,10 @@ namespace tagme3a_back_end.DAL.Data.Models
         [Required, MaxLength(100)]
         public string BundleName { get; set; } = string.Empty;
         public virtual ICollection<ProductPC> ProductsPC { get; set; } = new HashSet<ProductPC>();
+
+        public byte[]? Image { set; get; }
+
+        public decimal TotalPrice { get; set; }
+
     }
 }

@@ -11,6 +11,11 @@ using tagme3a_back_end.DAL.RepoInterfaces;
 using tagme3a_back_end.DAL.Repos;
 using tagme3a_back_end.DAL.Data.Models;
 using tagme3a_back_end.BL.Managers.ProductManager;
+using tagme3a_back_end.BL.Managers.City;
+using tagme3a_back_end.BL.Managers.address;
+using tagme3a_back_end.BL.Managers.PCManager;
+using tagme3a_back_end.BL.Managers.ProductManager;
+using tagme3a_back_end.BL.Managers.ProductManager;
 using tagme3a_back_end.BL.Managers.DashboardManager;
 
 namespace tagme3a_back_end.API
@@ -41,15 +46,13 @@ namespace tagme3a_back_end.API
             builder.Services.AddDbContext<MainDbContext>(op =>
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Tagme3aConn"))
             );
-            #region CategoriesRepoServices
-            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-            builder.Services.AddScoped<ICategoryManager,CategoryManager>();
+            
             #endregion
             #region BrandsRepoServices
             builder.Services.AddScoped<IBrandRepo, BrandRepo>();
             builder.Services.AddScoped<IBrandManager, BrandManager>();
             #endregion
-            #endregion
+          
 
             #region Identity Managers
             builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -94,28 +97,80 @@ namespace tagme3a_back_end.API
             });
             #endregion
 
-            #region Repos
+            #region OrderRepo
 
             builder.Services.AddScoped<IOrderRepo, orderRepo>();
+
+            #endregion
+            
+            #region CategoriesRepo & Manager
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<ICategoryManager, CategoryManager>();
+            #endregion
+
+            #region BrandsRepo & Manager
+            builder.Services.AddScoped<IBrandRepo, BrandRepo>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
+            #endregion
+            #region BrandsRepo & Manager
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
-            builder.Services.AddScoped<IDashboardRepo, DashboardRepo>();
+            builder.Services.AddScoped<IProductManager, ProductManager>();
+            #endregion
 
+            #region CityRepo
 
+            builder.Services.AddScoped<ICityRepo, CityRepo>();
 
+            #endregion
+            #region UserProductInCartRepoServices
+            builder.Services.AddScoped<IUserProductInCartRepo, UserProductInCartRepo>();
+            builder.Services.AddScoped<IUserProductInCartManager, UserProductInCartManager>();
+            #endregion
 
+            #region AddressRepo
+            builder.Services.AddScoped<IAddressRepo, AddressRepo>();
 
             #endregion
 
-            #region Managers
+            #region PCRepo
+            builder.Services.AddScoped<IPCsRepo , PCsRepo>();
+            #endregion
+
+            #region OrderManager
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
-            builder.Services.AddScoped<IProductManager, ProductManager>();
+            
             builder.Services.AddScoped<IDashboardManager, DashboardManager>();
 
 
             #endregion
 
+            #region CityManager
+            builder.Services.AddScoped<ICityManager, CityManager>();
 
+            #endregion
+
+            #region AddressManager
+
+            builder.Services.AddScoped<IAddressManager, AddressManager>();
+
+            #endregion
+
+            #region PCManager
+
+            builder.Services.AddScoped<IPCManager , PCManager>();
+
+            #endregion
+
+            #region ProductRepo
+            
+            #endregion
+
+            #region ProductManager
+
+          
+
+            #endregion
 
             var app = builder.Build();
 

@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using tagme3a_back_end.BL.DTOs.Category;
+using tagme3a_back_end.BL.DTOs.Product;
 using tagme3a_back_end.DAL.Data.Models;
 using tagme3a_back_end.DAL.RepoInterfaces;
 
@@ -13,9 +14,11 @@ namespace tagme3a_back_end.BL.Managers
     public class CategoryManager : ICategoryManager
     {
         private readonly ICategoryRepo categoryRepo;
-        public CategoryManager (ICategoryRepo category)
+        private readonly IProductRepo productRepo;
+        public CategoryManager (ICategoryRepo category, IProductRepo productRepo)
         {
             this.categoryRepo = category;
+            this.productRepo = productRepo;
         }
         public void DeleteCategory(int id)
         {
@@ -44,10 +47,26 @@ namespace tagme3a_back_end.BL.Managers
                 );           
         }
 
-        public void GetProductsWithCategory(int id)
+        public CategoryWithProductsDTO GetProductsWithCategory(int id)
         {
-            var Categories = categoryRepo.GetAll();
-
+            Category catFromDb = categoryRepo.GetWithProductsById(id);
+            if (catFromDb == null) { return null!; }
+            return new CategoryWithProductsDTO
+            {
+                CategoryId = catFromDb.CategoryId,
+                Name = catFromDb.Name,
+                Description = catFromDb.Description,
+                Image = catFromDb.Image,
+                products = catFromDb.Products.Select(
+                    p => new ProductBrandCategoryDTO
+                    {   Id = p.Id, Description = p.Description, 
+                        Discount = p.Discount,
+                        Name = p.Name,
+                        Price = p.Price,
+                        UnitInStocks = p.UnitInStocks,
+                        ProductImages = p.ProductImages.Select(pi => Convert.ToBase64String(pi.Photo!)).ToList()
+                    })
+            };
         }
 
         public void Insert(CategoryInsertDTO categoryDTO)

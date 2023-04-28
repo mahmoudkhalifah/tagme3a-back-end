@@ -33,6 +33,14 @@ namespace tagme3a_back_end.DAL.Repos
             return context.Brands.Find(id)!;
         }
 
+        public Brand GetWithProductsById(int id)
+        {
+            return context.Set<Brand>()
+                    .Include(d => d.Products)
+                    .ThenInclude(i => i.ProductImages)
+                    .FirstOrDefault(d => d.BrandId == id)!;
+        }
+
         public void Insert(Brand brand)
         {
             context.Brands.Add(brand);

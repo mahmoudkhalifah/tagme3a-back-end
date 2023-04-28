@@ -349,6 +349,12 @@ namespace tagme3a_back_end.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("PCId");
 
                     b.ToTable("PCs");
