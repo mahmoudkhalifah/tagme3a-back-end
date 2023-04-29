@@ -24,7 +24,7 @@ namespace tagme3a_back_end.API.Controllers
         }
         [HttpGet]
         [Route("getProductsInCategory/{id:int}")]
-        public ActionResult<List<ProductJourneyModeReadDTO>> GetProductsInCategory(int id,decimal maxPrice)
+        public ActionResult<List<ProductJourneyModeReadDTO>> GetCategoriesWithProductsByPrice(int id,decimal maxPrice)
         {
             return manager.GetCategoriesWithProductsByPrice(id, maxPrice).ToList();
         }
