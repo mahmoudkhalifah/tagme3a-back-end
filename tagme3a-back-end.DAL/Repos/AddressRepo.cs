@@ -58,6 +58,14 @@ namespace tagme3a_back_end.DAL.Repos
             }
         }
 
+        public int GetAddressIdbyUID(string UID)
+        {
+            var Address = _context.Addresses.FirstOrDefault(e => e.UserId == UID);
+            if (Address == null)
+                return 0;
+            return Address.AddressId ;
+        }
+
         public IEnumerable<Address> getAll()
         {
             return _context.Set<Address>().Include(o=>o.City);
