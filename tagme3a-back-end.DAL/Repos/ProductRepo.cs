@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,15 @@ namespace tagme3a_back_end.DAL.Repos
         {
             _context.Products.Add(product);
             _context.SaveChanges();
+            //int id = product.Id;
+           // int counter = product.ProductImages.Count;
+           // for (int i = 0; i < counter; i++)
+            //{
+                //ProductImage productImage = new ProductImage() { Photo = product.ProductImages.ElementAt(i).Photo, ProductId = id };
+              //  product.ProductImages.ElementAt(i).ProductId = id;
+            //}
+            //_context.ProductImages.AddRange(product.ProductImages);
+            //_context.SaveChanges();
         }
 
         public void DeleteProduct(int id)
@@ -36,12 +46,12 @@ namespace tagme3a_back_end.DAL.Repos
 
         public IEnumerable<Product> GetAllProducts()
         {
-            return _context.Set<Product>();
+            return _context.Set<Product>().Include(p=>p.ProductImages);
         }
 
         public Product GetProductById(int id)
         {
-            Product? prd = _context.Products.Find(id);
+            Product? prd = _context.Products.Include(p=>p.ProductImages).FirstOrDefault(p=>p.Id == id);
                 return prd;            
         }
 
@@ -62,11 +72,12 @@ namespace tagme3a_back_end.DAL.Repos
                 prd.UnitInStocks= product.UnitInStocks;
                 prd.CategoryID = product.CategoryID;
                 prd.BrandID = product.BrandID;
+                var counter = 0;
                 foreach (var image in product.ProductImages)
                 {
-                    prd.ProductImages.Add(image);
+                    prd.ProductImages.ElementAt(counter).Photo = image.Photo;
+                    counter++;
                 }
-
                 _context.SaveChanges();
             }
         }

@@ -17,7 +17,12 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
 
         public bool UpdatePC(int id, PC pc);
         public bool DeletePC(int id);
-        int SaveChanges();
+
+        public IEnumerable<ProductPC> getAllPrdPc();
+
+		public bool DeletePrdPC(int id, ProductPC Prdpc);
+
+		int SaveChanges();
 
     }
 }

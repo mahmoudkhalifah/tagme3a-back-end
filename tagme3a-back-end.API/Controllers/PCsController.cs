@@ -23,6 +23,12 @@ namespace tagme3a_back_end.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllPrdPc")]
+        public ActionResult<List<PrdPCInsertDTO>> GetAllPrdPc()
+        {
+            return _pcManager.getAllPrdPc().ToList();
+        }
+        [HttpGet]
         [Route("{id}")]
 
         public ActionResult<PCReadDetailsDTO> GetDetails(int id)
@@ -46,6 +52,14 @@ namespace tagme3a_back_end.API.Controllers
         }
 
         [HttpPut]
+        [Route("UpdateProductPc/{id}")]
+
+		public ActionResult<bool> UpdatePrdPc(int id , PrdPCUpdateDTO prd)
+		{
+			return _pcManager.UpdatePrdPC(id, prd);
+		}
+
+		[HttpPut]
         [Route("{id}")]
         public ActionResult<bool> UpdatePc(int id , PCInsertDTO data)
         {
@@ -57,6 +71,14 @@ namespace tagme3a_back_end.API.Controllers
         public ActionResult<bool> DeletePc(int id) 
         {
             return _pcManager.DeletePC(id);
+        }
+
+        [HttpDelete]
+        [Route("DeletePrdPC/{id}")]
+
+        public ActionResult<bool> DeletePrdPC(int id , PrdPcDeleteDTO prdpc)
+        {
+            return _pcManager.DeletePrdPC(id, prdpc);
         }
     }
 }
