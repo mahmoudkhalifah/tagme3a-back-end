@@ -73,5 +73,10 @@ namespace tagme3a_back_end.BL.Managers.address
             };
             return _addressRepo.UpdateAddress(id, add);
         }
+
+        public int GetAddressIDbyUID(string UID)
+        {
+            return _addressRepo.GetAddressIdbyUID(UID);
+        }
     }
 }
