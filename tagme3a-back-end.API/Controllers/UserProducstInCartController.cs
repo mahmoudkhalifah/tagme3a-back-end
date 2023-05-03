@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using tagme3a_back_end.BL.DTOs.Brand;
 using tagme3a_back_end.BL.DTOs.UserProductInCart;
 using tagme3a_back_end.BL.Managers;
@@ -48,6 +49,23 @@ namespace tagme3a_back_end.API.Controllers
             }
             userProductInCartManager.DeleteProductInCart(UserId,ProductId);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("GetUserCartPrdName")]
+
+        public ActionResult <List<UserCartPrdName>> GetUserCartPrdName(string UserId )
+        {
+            var Carts = userProductInCartManager.GetUserCartPrdName(UserId).ToList();
+            if (Carts == null) { return NoContent(); }
+            return Ok(Carts);
+        }
+        [HttpPut]
+        [Route("UpdateCard")]
+        public ActionResult UpdateCard (int PID, String UID, UserProductInCartInsertDTO UserProductInCartInsertDTO)
+        {
+            userProductInCartManager.UpdateCard(PID, UID, UserProductInCartInsertDTO);
+            return Ok();
         }
     }
 }

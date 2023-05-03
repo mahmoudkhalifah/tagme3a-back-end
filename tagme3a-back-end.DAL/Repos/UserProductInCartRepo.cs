@@ -41,6 +41,19 @@ namespace tagme3a_back_end.DAL.Repos
             context.SaveChanges();
         }
 
+        public void EditProductInCartbyUIDPID(UserProductInCart userProductInCart,string UID,int PID)
+        {
+            var cart = context.UserProductInCarts.Find(UID, PID);
+            if (cart != null)
+            {
+                cart.ProductId= userProductInCart.ProductId;
+                cart.Quantity = userProductInCart.Quantity;
+                cart.UserId = userProductInCart.UserId;
+            }
+            context.SaveChanges();
+        }
+
+
         public UserProductInCart GetDetails(string UserId, int ProductId)
         {
             return context.UserProductInCarts.Find(UserId, ProductId)!;

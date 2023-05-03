@@ -21,6 +21,8 @@ namespace tagme3a_back_end.BL.DTOs.Product
         public int? CategoryID { get; set;}
         public List<string> ProductImages { get; set; } = new List<string>();
 
+        public int Quantity { get; set; }
+
 
     }
 }
