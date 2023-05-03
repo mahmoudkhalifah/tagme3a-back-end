@@ -19,7 +19,7 @@ namespace tagme3a_back_end.API.Controllers
         public ActionResult GetDetailsOfCartForSpecificUser(string UserId)
         {
             var t = userProductInCartManager.GetUserProductsInCart(UserId);
-            if(t == null) { return NotFound(); }
+            if (t == null) { return NotFound(); }
             return Ok(t);
         }
         [HttpPost]
@@ -28,6 +28,15 @@ namespace tagme3a_back_end.API.Controllers
             userProductInCartManager.AddProductInCart(DTO);
             return NoContent();
         }
+
+        [HttpPost]
+        [Route("{userId}")]
+        public ActionResult AddProductsInCart(List<UserPCInCartInsertDTO> userPCInCarts, string userId)
+        {
+            userProductInCartManager.AddLstProductInCart(userPCInCarts, userId);
+            return NoContent();
+        }
+
         [HttpDelete]
         [Route("{UserId}/{ProductId}")]
         public ActionResult DeleteById(string UserId, int ProductId)

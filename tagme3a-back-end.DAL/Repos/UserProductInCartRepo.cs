@@ -23,6 +23,12 @@ namespace tagme3a_back_end.DAL.Repos
             context.SaveChanges();
         }
 
+        public void AddLstProductInCart(List<UserProductInCart> userProductInCart)
+        {
+            context.UserProductInCarts.AddRange(userProductInCart);
+            context.SaveChanges();
+        }
+
         public void DeleteProductInCart(string UserId, int ProductId)
         {
             var userProductInCart = context.UserProductInCarts.Find(UserId, ProductId);
