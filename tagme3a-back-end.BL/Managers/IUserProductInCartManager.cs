@@ -12,6 +12,8 @@ namespace tagme3a_back_end.BL.Managers
     public interface IUserProductInCartManager
     {
         public void AddProductInCart(UserProductInCartInsertDTO userProductInCart);
+        public void AddLstProductInCart(List<UserPCInCartInsertDTO> userPCInCarts, string userId);
+
         public void DeleteProductInCart(string UserId, int ProductId);
         public void EditProductInCart(UserProductInCartInsertDTO userProductInCart);
         public UserProductInCartInsertDTO GetDetails(string UserId, int ProductId);
