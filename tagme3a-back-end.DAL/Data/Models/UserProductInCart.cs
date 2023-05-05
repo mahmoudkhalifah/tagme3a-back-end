@@ -16,5 +16,6 @@ namespace tagme3a_back_end.DAL.Data.Models
         public string UserId { get; set; } = string.Empty;
         public virtual User? User { get; set; }
         public int Quantity { get; set; }
+       
     }
 }

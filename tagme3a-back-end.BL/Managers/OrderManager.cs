@@ -208,7 +208,8 @@ namespace tagme3a_back_end.BL.Managers
             return null;
         }
 
-        public IEnumerable<OrderCityNameproducts> OrderByUserID(string ID)
+        // public IEnumerable<OrderCityNameproducts> OrderByUserID(string ID)///
+        public OrderCityNameproducts OrderByUserID(string ID)
         {
             var Orders = _orderRepo.GetordersByUserID(ID);
             if (Orders == null)
@@ -237,7 +238,7 @@ namespace tagme3a_back_end.BL.Managers
 
                 })
 
-            }).ToList();
+            }).Last();
         }
     
        //Details
@@ -260,5 +261,10 @@ namespace tagme3a_back_end.BL.Managers
             };
 
         }
+
+       // IEnumerable<OrderCityNameproducts> IOrderManager.OrderByUserID(string ID)
+        ///{
+           // throw new NotImplementedException();
+        //}
     }
 }
