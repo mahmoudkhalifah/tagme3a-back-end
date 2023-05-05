@@ -16,6 +16,7 @@ namespace tagme3a_back_end.DAL.Data.Models
         public string Description { get; set; } = string.Empty;
         public byte[]? Image { get; set; }
         public bool InJourneyMode { get; set; }
+        public int? OrderForJourneyMode { get; set; }
         public virtual ICollection<Product> Products { set; get; } = new List<Product>();
     }
 }
