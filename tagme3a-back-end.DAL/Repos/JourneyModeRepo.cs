@@ -20,7 +20,8 @@ namespace tagme3a_back_end.DAL.Repos
         }
         public IEnumerable<Category> GetCategories()
         {
-            return context.Categories.Where(c=>c.InJourneyMode == true);
+            return context.Categories.Where(c=>c.InJourneyMode == true)
+                .OrderBy(c=>c.OrderForJourneyMode);
         }
 
         public IEnumerable<Product> GetCategoriesWithProductsByPrice(int categoryId, decimal maxPrice)
