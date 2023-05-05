@@ -15,6 +15,7 @@ namespace tagme3a_back_end.DAL.Data.Models
         [MaxLength(450)]
         public string UserId { get; set; } = string.Empty;
         public virtual User? User { get; set; }
+
         public int Quantity { get; set; }
        
     }

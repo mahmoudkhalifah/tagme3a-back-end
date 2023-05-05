@@ -23,6 +23,12 @@ namespace tagme3a_back_end.DAL.Repos
             context.SaveChanges();
         }
 
+        public void AddLstProductInCart(List<UserProductInCart> userProductInCart)
+        {
+            context.UserProductInCarts.AddRange(userProductInCart);
+            context.SaveChanges();
+        }
+
         public void DeleteProductInCart(string UserId, int ProductId)
         {
             var userProductInCart = context.UserProductInCarts.Find(UserId, ProductId);
@@ -34,6 +40,19 @@ namespace tagme3a_back_end.DAL.Repos
             context.Entry(userProductInCart).State = EntityState.Modified;
             context.SaveChanges();
         }
+
+        public void EditProductInCartbyUIDPID(UserProductInCart userProductInCart,string UID,int PID)
+        {
+            var cart = context.UserProductInCarts.Find(UID, PID);
+            if (cart != null)
+            {
+                cart.ProductId= userProductInCart.ProductId;
+                cart.Quantity = userProductInCart.Quantity;
+                cart.UserId = userProductInCart.UserId;
+            }
+            context.SaveChanges();
+        }
+
 
         public UserProductInCart GetDetails(string UserId, int ProductId)
         {

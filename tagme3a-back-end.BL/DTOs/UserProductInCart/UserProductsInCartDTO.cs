@@ -10,6 +10,7 @@ namespace tagme3a_back_end.BL.DTOs.UserProductInCart
     public class UserProductsInCartDTO
     {
         public string UserId { get; set; } = string.Empty;
+        public int Quantity { get; set; }
         public IEnumerable<ProductReadDto>productReadDtos { get; set; }=new List<ProductReadDto>();
 
       
