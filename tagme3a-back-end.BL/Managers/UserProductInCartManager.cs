@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tagme3a_back_end.BL.DTOs.OrderDTO;
 using tagme3a_back_end.BL.DTOs.UserProductInCart;
 using tagme3a_back_end.DAL.Data.Models;
 using tagme3a_back_end.DAL.RepoInterfaces;
+using tagme3a_back_end.DAL.Repos;
 
 namespace tagme3a_back_end.BL.Managers
 {
@@ -21,9 +23,24 @@ namespace tagme3a_back_end.BL.Managers
             var _userProductInCart = new UserProductInCart() {
                 ProductId = userProductInCart.ProductId,
                 UserId = userProductInCart.UserId,
-                Quantity=userProductInCart.Quantity
+                Quantity =userProductInCart.Quantity
             };
             userProductInCartRepo.AddProductInCart(_userProductInCart);
+        }
+
+
+        public void AddLstProductInCart(List<UserPCInCartInsertDTO> userPCInCarts , string userId)
+        {
+            
+            var userProductsInCart = userPCInCarts.Select(userProduct => new UserProductInCart
+            {
+                ProductId = userProduct.ProductId,
+                UserId = userId,
+                Quantity = userProduct.ProductId
+            }).ToList();
+
+            userProductInCartRepo.AddLstProductInCart(userProductsInCart);
+
         }
 
         public void DeleteProductInCart(string UserId, int ProductId)
@@ -43,6 +60,26 @@ namespace tagme3a_back_end.BL.Managers
             ProductId = userProductInCart.ProductId,
             Quantity = userProductInCart.Quantity,
             UserId=userProductInCart.UserId};
+        }
+
+        public List<UserCartPrdName> GetUserCartPrdName(string UserId)
+        {
+            var Carts = userProductInCartRepo.GetUserProductsInCart(UserId);
+            if (Carts == null)
+            {
+                return null;
+            }
+            var productOrders = Carts.ProductsInCart.Select(po =>
+            new UserCartPrdName
+            {
+                PrdName = po.Product.Name,
+                Quantity = po.Quantity,
+                Price=po.Product.Price,
+                PID=po.ProductId
+
+            }).ToList();
+
+            return productOrders;
         }
 
         public UserProductsInCartDTO GetUserProductsInCart(string UserId)
@@ -68,5 +105,20 @@ namespace tagme3a_back_end.BL.Managers
             };
             return t;
         }
+
+        public void UpdateCard(int PID,String UID,UserProductInCartInsertDTO UserProductInCartInsertDTO)
+        {
+            var Cart = userProductInCartRepo.GetDetails(UID, PID);
+
+            if (Cart != null)
+            {
+                Cart.ProductId = UserProductInCartInsertDTO.ProductId;
+                Cart.Quantity = UserProductInCartInsertDTO.Quantity;
+                Cart.UserId = UserProductInCartInsertDTO.UserId;
+            }
+            userProductInCartRepo.EditProductInCartbyUIDPID(Cart,UID, PID);
+        }
+
+       
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using tagme3a_back_end.BL.DTOs.Brand;
 using tagme3a_back_end.BL.DTOs.UserProductInCart;
 using tagme3a_back_end.BL.Managers;
@@ -19,7 +20,7 @@ namespace tagme3a_back_end.API.Controllers
         public ActionResult GetDetailsOfCartForSpecificUser(string UserId)
         {
             var t = userProductInCartManager.GetUserProductsInCart(UserId);
-            if(t == null) { return NotFound(); }
+            if (t == null) { return NotFound(); }
             return Ok(t);
         }
         [HttpPost]
@@ -28,6 +29,15 @@ namespace tagme3a_back_end.API.Controllers
             userProductInCartManager.AddProductInCart(DTO);
             return NoContent();
         }
+
+        [HttpPost]
+        [Route("{userId}")]
+        public ActionResult AddProductsInCart(List<UserPCInCartInsertDTO> userPCInCarts, string userId)
+        {
+            userProductInCartManager.AddLstProductInCart(userPCInCarts, userId);
+            return NoContent();
+        }
+
         [HttpDelete]
         [Route("{UserId}/{ProductId}")]
         public ActionResult DeleteById(string UserId, int ProductId)
@@ -39,6 +49,23 @@ namespace tagme3a_back_end.API.Controllers
             }
             userProductInCartManager.DeleteProductInCart(UserId,ProductId);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("GetUserCartPrdName")]
+
+        public ActionResult <List<UserCartPrdName>> GetUserCartPrdName(string UserId )
+        {
+            var Carts = userProductInCartManager.GetUserCartPrdName(UserId).ToList();
+            if (Carts == null) { return NoContent(); }
+            return Ok(Carts);
+        }
+        [HttpPut]
+        [Route("UpdateCard")]
+        public ActionResult UpdateCard (int PID, String UID, UserProductInCartInsertDTO UserProductInCartInsertDTO)
+        {
+            userProductInCartManager.UpdateCard(PID, UID, UserProductInCartInsertDTO);
+            return Ok();
         }
     }
 }
