@@ -28,6 +28,7 @@ namespace tagme3a_back_end.DAL.Repos
         {
             return context.Products
                 .Where(c => c.CategoryID == categoryId && c.Price-c.Discount < maxPrice)
+                .Include(p=>p.ProductImages)
                 .OrderBy(c=>c.Price);
         }
     }
