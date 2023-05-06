@@ -28,6 +28,9 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
 
        IEnumerable<Order> GetordersByUserID(string UserId);
 
+        int GetOrderLastID(string UID);
+
+
 
     }
 }

@@ -22,7 +22,7 @@ namespace tagme3a_back_end.BL.DTOs.OrderDTO
         public string Fname { get; set; }   =string.Empty;
         public string Lname { get; set; } = string.Empty;
 
-        public IEnumerable<ProductOrdersReadInOrderDTO> ProductOrdersReadInOrder { get; init; }
+        public IEnumerable<ProductOrdersReadInOrderDTO> ProductOrdersReadInOrder { get; set; }
         = new List<ProductOrdersReadInOrderDTO>();
 
 

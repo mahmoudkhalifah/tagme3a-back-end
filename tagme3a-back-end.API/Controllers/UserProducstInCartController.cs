@@ -67,5 +67,15 @@ namespace tagme3a_back_end.API.Controllers
             userProductInCartManager.UpdateCard(PID, UID, UserProductInCartInsertDTO);
             return Ok();
         }
+
+        [HttpDelete]
+        [Route("DeleteCarts")]
+        public ActionResult DeleteCards(String UID)
+        {
+            userProductInCartManager.DeleteCarts(UID);
+            return NoContent();
+        }
+
+
     }
 }

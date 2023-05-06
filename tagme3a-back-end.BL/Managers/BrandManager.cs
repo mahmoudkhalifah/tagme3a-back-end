@@ -45,7 +45,7 @@ namespace tagme3a_back_end.BL.Managers
                 Name = brandFromDb.Name,
                 Description = brandFromDb.Description,
                 Logo = brandFromDb.Logo,
-                products = brandFromDb.Products.Select(
+                products = brandFromDb.Products.Where(p => p.UnitInStocks > 0)  .Select(
                     p => new ProductBrandCategoryDTO
                     {
                         Id = p.Id,

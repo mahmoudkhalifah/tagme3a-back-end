@@ -53,7 +53,7 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
         public IEnumerable<ProductReadDto> GetAllProduct()
         {
             var prds = _productRepo.GetAllProducts();
-            return prds.Select(p => new ProductReadDto
+            return prds.Where(p=>p.UnitInStocks>0).Select(p => new ProductReadDto
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -70,9 +70,9 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
         public IEnumerable<ProductReadDto> GetAllProduct(int brandId, int categoryId)
         {
             var prds = _productRepo.GetAllProducts();
-            return prds.Where(p => p.CategoryID == categoryId && p.BrandID == brandId)
+            return prds.Where(p => p.CategoryID == categoryId && p.BrandID == brandId && p.UnitInStocks>0)
                 .Select(p => new ProductReadDto
-            {
+             {
                 Id = p.Id,
                 Name = p.Name,
                 CategoryID = p.CategoryID,//

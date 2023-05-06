@@ -12,5 +12,8 @@ namespace tagme3a_back_end.BL.DTOs.UserProductInCart
         public int PID { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int? Discount { get; set; }
+        public int? UnitInStocks { get; set; }
+
     }
 }

@@ -66,5 +66,17 @@ namespace tagme3a_back_end.DAL.Repos
                      .ThenInclude(d=>d.Product)
                      .FirstOrDefault(d => d.Id == UserId)!;
         }
+
+        public void DeleteCart(string UID)
+        {
+            var carts = context.UserProductInCarts.Where(e => e.UserId == UID);
+      
+
+            if (carts != null)
+            {
+                context.UserProductInCarts.RemoveRange(carts);
+                context.SaveChanges();
+            }
+        }
     }
 }
