@@ -38,6 +38,7 @@ namespace tagme3a_back_end.BL.Managers.PCManager
                 TotalPrice = e.TotalPrice,
                 products = e.ProductsPC.Select(p => new ProductReadInPCDTO()
                 {
+                    ProductId = p.Product.Id,
                     Name = p.Product?.Name ?? "",
                     Description = p.Product?.Description ?? "",
                     //BrandName = p.Product?.Brand?.Name ?? "",

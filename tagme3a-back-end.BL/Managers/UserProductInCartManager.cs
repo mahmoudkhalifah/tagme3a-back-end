@@ -28,6 +28,21 @@ namespace tagme3a_back_end.BL.Managers
             userProductInCartRepo.AddProductInCart(_userProductInCart);
         }
 
+
+        public void AddLstProductInCart(List<UserPCInCartInsertDTO> userPCInCarts , string userId)
+        {
+            
+            var userProductsInCart = userPCInCarts.Select(userProduct => new UserProductInCart
+            {
+                ProductId = userProduct.ProductId,
+                UserId = userId,
+                Quantity = userProduct.ProductId
+            }).ToList();
+
+            userProductInCartRepo.AddLstProductInCart(userProductsInCart);
+
+        }
+
         public void DeleteProductInCart(string UserId, int ProductId)
         {
             userProductInCartRepo.DeleteProductInCart(UserId, ProductId);
