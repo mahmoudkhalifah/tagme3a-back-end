@@ -13,12 +13,17 @@ namespace tagme3a_back_end.BL.DTOs.Category
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public byte[]? Image { set; get; }
-        public CategoryDTO(int Id, string Name, string Description, byte[]? Image)
+        public bool InJourneyMode { get; set; }
+        public int? OrderForJourneyMode { get; set; }
+        public CategoryDTO(int Id, string Name, string Description, byte[]? Image, bool InJourneyMode
+      , int? OrderForJourneyMode)
         {
             this.Description = Description;
             CategoryId = Id;
             this.Name = Name;
             this.Image = Image;
+            this.InJourneyMode = InJourneyMode;
+            this.OrderForJourneyMode = OrderForJourneyMode;
         }
     }
 }

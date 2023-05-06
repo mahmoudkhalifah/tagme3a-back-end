@@ -13,6 +13,8 @@ namespace tagme3a_back_end.BL.DTOs.Category
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public byte[]? Image { get; set; }
+        public bool InJourneyMode { get; set; }
+        public int? OrderForJourneyMode { get; set; }
         public IEnumerable<ProductBrandCategoryDTO> products { get; set; }= new List<ProductBrandCategoryDTO>();
     }
 }
