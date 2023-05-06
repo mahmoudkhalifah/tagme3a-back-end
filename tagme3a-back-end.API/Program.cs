@@ -15,6 +15,8 @@ using tagme3a_back_end.BL.Managers.City;
 using tagme3a_back_end.BL.Managers.address;
 using tagme3a_back_end.BL.Managers.PCManager;
 using tagme3a_back_end.BL.Managers.DashboardManager;
+using Microsoft.AspNetCore.StaticFiles;
+using tagme3a_back_end.BL.Managers.SearchManager;
 
 namespace tagme3a_back_end.API
 {
@@ -134,6 +136,13 @@ namespace tagme3a_back_end.API
             builder.Services.AddScoped<IPCsRepo , PCsRepo>();
             #endregion
 
+
+            #region SearchRepo
+
+            builder.Services.AddScoped<ISearchRepo, SearchRepo>();
+
+            #endregion
+
             #region OrderManager
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
@@ -163,6 +172,12 @@ namespace tagme3a_back_end.API
             #endregion
 
 
+            #region SearchManager
+            builder.Services.AddScoped<ISearchManager, SearchManager>();
+
+            #endregion
+
+
             var app = builder.Build();
 
 
@@ -178,7 +193,14 @@ namespace tagme3a_back_end.API
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-       
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ContentTypeProvider = new FileExtensionContentTypeProvider
+                {
+                    Mappings = { [".css"] = "text/css" }
+                }
+            });
 
 
 
