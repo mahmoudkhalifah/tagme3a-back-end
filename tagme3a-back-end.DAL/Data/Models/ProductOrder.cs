@@ -18,3 +18,4 @@ namespace tagme3a_back_end.DAL.Data.Models
         public int Quantiy { get; set; } = 0;
     }
 }
+

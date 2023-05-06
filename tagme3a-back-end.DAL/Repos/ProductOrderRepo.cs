@@ -16,11 +16,12 @@ namespace tagme3a_back_end.DAL.Repos
         {
             this.mainDbContext1 = mainDbContext;
         }   
-        public void AddProductOrder(List<ProductOrder> prdOrders)
+        public void AddProductOrder(IEnumerable<ProductOrder> prdOrders)
         {
            this.mainDbContext1.ProductOrders.AddRange(prdOrders);
             mainDbContext1.SaveChanges();
         }
+
 
         public void DeleteProductOrder(int ProductId, int OrderId)
         {

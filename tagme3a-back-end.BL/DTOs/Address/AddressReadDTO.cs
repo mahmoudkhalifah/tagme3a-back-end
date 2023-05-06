@@ -18,9 +18,5 @@ namespace tagme3a_back_end.BL.DTOs.Address
         public string? NearestLandmark { get; set; }
         public string CityName { get; set; } = string.Empty;
 
-        //public IEnumerable<OrderReadInAddressDTO> orders { get; set; }
-        //= new List<OrderReadInAddressDTO>();
-
-
     }
 }

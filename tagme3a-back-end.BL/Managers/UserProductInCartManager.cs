@@ -75,7 +75,11 @@ namespace tagme3a_back_end.BL.Managers
                 PrdName = po.Product.Name,
                 Quantity = po.Quantity,
                 Price=po.Product.Price,
-                PID=po.ProductId
+                PID=po.ProductId,
+                Discount=po.Product.Discount,
+                UnitInStocks=po.Product.UnitInStocks
+
+
 
             }).ToList();
 
@@ -119,7 +123,10 @@ namespace tagme3a_back_end.BL.Managers
             }
             userProductInCartRepo.EditProductInCartbyUIDPID(Cart,UID, PID);
         }
+        public void DeleteCarts(string UID)
+        {
+            userProductInCartRepo.DeleteCart(UID);
+        }
 
-       
     }
 }

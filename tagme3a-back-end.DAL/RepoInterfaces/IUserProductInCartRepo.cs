@@ -18,5 +18,6 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
         public User GetUserProductsInCart(string UserId);
         public void EditProductInCartbyUIDPID(UserProductInCart userProductInCart, string UID, int PID);
 
+        public void DeleteCart(string UID);
     }
 }

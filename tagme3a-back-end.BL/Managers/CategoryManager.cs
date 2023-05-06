@@ -60,9 +60,10 @@ namespace tagme3a_back_end.BL.Managers
                 Name = catFromDb.Name,
                 Description = catFromDb.Description,
                 Image = catFromDb.Image,
+               
                 InJourneyMode = catFromDb.InJourneyMode,
                 OrderForJourneyMode = catFromDb.OrderForJourneyMode,
-                products = catFromDb.Products.Select(
+                products = catFromDb.Products.Where(p => p.UnitInStocks > 0).Select(
                     p => new ProductBrandCategoryDTO
                     {   Id = p.Id, Description = p.Description, 
                         Discount = p.Discount,

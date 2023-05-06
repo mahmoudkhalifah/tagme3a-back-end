@@ -9,7 +9,7 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
 {
     public interface IProductOrderRepo
     {
-        public void AddProductOrder(List<ProductOrder>prdOrders);
+        public void AddProductOrder(IEnumerable<ProductOrder>prdOrders);
         public void DeleteProductOrder(int ProductId, int OrderId);
         public void EditProductOrder(ProductOrder productOrder);
         public ProductOrder GetDetails(int ProductId, int OrderId);

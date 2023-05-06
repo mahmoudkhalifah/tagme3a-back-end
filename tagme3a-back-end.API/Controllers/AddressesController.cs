@@ -53,5 +53,15 @@ namespace tagme3a_back_end.API.Controllers
         {
            return Ok(_addressManager.GetAddressIDbyUID(UID));
         }
+
+        [HttpGet]
+        [Route("GetAddressesByUID")]
+
+        public IActionResult GetAddressesByUID(string ID)
+        {
+            var Addresses=_addressManager.GetAddress(ID);
+            if(Addresses==null) return NotFound();
+            return Ok(Addresses);
+        }
     }
 }

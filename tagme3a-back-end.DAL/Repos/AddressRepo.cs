@@ -60,7 +60,7 @@ namespace tagme3a_back_end.DAL.Repos
 
         public int GetAddressIdbyUID(string UID)
         {
-            var Address = _context.Addresses.FirstOrDefault(e => e.UserId == UID);
+            var Address = _context.Addresses.OrderBy(e=>e.AddressId).Last(e => e.UserId == UID)  ;
             if (Address == null)
                 return 0;
             return Address.AddressId ;
