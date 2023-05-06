@@ -19,6 +19,7 @@ using tagme3a_back_end.BL.Managers.JourneyModeManager;
 using Microsoft.AspNetCore.StaticFiles;
 using tagme3a_back_end.BL.Managers.SearchManager;
 using tagme3a_back_end.BL.Managers.PrpductOrderManager;
+using tagme3a_back_end.BL.Payment;
 
 namespace tagme3a_back_end.API
 {
@@ -171,6 +172,10 @@ namespace tagme3a_back_end.API
 
             builder.Services.AddScoped<IPCManager , PCManager>();
 
+            #endregion
+
+            #region Payment
+          //  builder.Services.AddScoped<IPaymentService, PaymentService>();
             #endregion
 
 

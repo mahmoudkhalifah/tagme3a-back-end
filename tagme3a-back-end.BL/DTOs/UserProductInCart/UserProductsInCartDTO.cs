@@ -13,5 +13,7 @@ namespace tagme3a_back_end.BL.DTOs.UserProductInCart
         public int Quantity { get; set; }
         public IEnumerable<ProductReadDto>productReadDtos { get; set; }=new List<ProductReadDto>();
 
+      
+
     }
 }

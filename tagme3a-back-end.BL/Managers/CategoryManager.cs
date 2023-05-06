@@ -32,7 +32,9 @@ namespace tagme3a_back_end.BL.Managers
               Id:c.CategoryId,
               Name:c.Name,
               Description:c.Description,
-              Image:c.Image!
+              Image:c.Image!,
+              InJourneyMode:c.InJourneyMode,
+              OrderForJourneyMode:c.OrderForJourneyMode
             ));
         }
 
@@ -43,7 +45,8 @@ namespace tagme3a_back_end.BL.Managers
                 return null!;
             return new CategoryDTO
                 (
-                 category.CategoryId,category.Name,category.Description,category.Image!
+                 category.CategoryId,category.Name,category.Description,category.Image!,
+                 category.InJourneyMode,category.OrderForJourneyMode
                 );           
         }
 
@@ -57,7 +60,10 @@ namespace tagme3a_back_end.BL.Managers
                 Name = catFromDb.Name,
                 Description = catFromDb.Description,
                 Image = catFromDb.Image,
-                products = catFromDb.Products.Where(p=>p.UnitInStocks>0).Select(
+               
+                InJourneyMode = catFromDb.InJourneyMode,
+                OrderForJourneyMode = catFromDb.OrderForJourneyMode,
+                products = catFromDb.Products.Where(p => p.UnitInStocks > 0).Select(
                     p => new ProductBrandCategoryDTO
                     {   Id = p.Id, Description = p.Description, 
                         Discount = p.Discount,
@@ -77,6 +83,8 @@ namespace tagme3a_back_end.BL.Managers
                 Name = categoryDTO.Name,
                 Description = categoryDTO.Description,
                 Image = imageBytes,
+                InJourneyMode = categoryDTO.InJourneyMode,
+                OrderForJourneyMode = categoryDTO.OrderForJourneyMode,              
             };
             categoryRepo.Insert(category);
         }
@@ -90,6 +98,8 @@ namespace tagme3a_back_end.BL.Managers
                 category.Name = dto.Name;
                 category.Description = dto.Description;
                 category.Image = imageBytes;
+                category.InJourneyMode = dto.InJourneyMode;
+                category.OrderForJourneyMode= dto.OrderForJourneyMode;  
             }
             categoryRepo.UpdateCategory(id, category!);
         }

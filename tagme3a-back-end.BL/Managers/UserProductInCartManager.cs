@@ -94,6 +94,7 @@ namespace tagme3a_back_end.BL.Managers
             var t = new UserProductsInCartDTO()
             {
                 UserId = UserId,
+            
                 productReadDtos = data.ProductsInCart.Select(p => new DTOs.Product.ProductReadDto
                 {
                     Name = p.Product!.Name ,
