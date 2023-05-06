@@ -16,5 +16,7 @@ namespace tagme3a_back_end.BL.Managers.address
 
         public bool UpdateAddress(int id , AddressAddDTO addressAddDTO);
 
+        public int GetAddressIDbyUID(string UID);
+
     }
 }

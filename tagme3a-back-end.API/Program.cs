@@ -15,6 +15,7 @@ using tagme3a_back_end.BL.Managers.City;
 using tagme3a_back_end.BL.Managers.address;
 using tagme3a_back_end.BL.Managers.PCManager;
 using tagme3a_back_end.BL.Managers.DashboardManager;
+using tagme3a_back_end.BL.Managers.JourneyModeManager;
 using Microsoft.AspNetCore.StaticFiles;
 using tagme3a_back_end.BL.Managers.SearchManager;
 
@@ -177,6 +178,10 @@ namespace tagme3a_back_end.API
 
             #endregion
 
+            #region JourneyMode
+            builder.Services.AddScoped<IJourneyModeRepo, JourneyModeRepo>();
+            builder.Services.AddScoped<IJourneyModeManager, JourneyModeManager>();
+            #endregion
 
             var app = builder.Build();
 

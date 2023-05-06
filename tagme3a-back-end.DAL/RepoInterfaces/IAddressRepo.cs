@@ -18,5 +18,7 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
         bool DeleteAddress(int id);
 
         int SaveChanges();
+
+        int GetAddressIdbyUID(string  UID);
     }
 }
