@@ -100,5 +100,15 @@ namespace tagme3a_back_end.DAL.Repos
                 Include(e => e.ProductOrders).ThenInclude(p=>p.Product).Include(e => e.User).Where(d=>d.UserId==UserId).ToList();
 
         }
+
+
+        public int GetOrderLastID(string UID)
+        {
+            var Order = _context.Orders.OrderBy(e => e.Id).Last(e=>e.UserId==UID);
+            if (Order == null)
+                return 0;
+            return Order.Id;
+        }
+
     }
 }
