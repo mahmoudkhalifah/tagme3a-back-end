@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.DTOs.OrderDTO;
 using tagme3a_back_end.BL.Managers;
@@ -17,6 +18,7 @@ namespace tagme3a_back_end.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Constants.Authorize.Admin)]
         public ActionResult<List<OrderReadDTO>> GetAll()
         {
             var Orders= _orderManager.GetAll().ToList();
