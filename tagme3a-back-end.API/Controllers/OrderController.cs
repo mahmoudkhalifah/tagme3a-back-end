@@ -92,8 +92,8 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpGet]
         [Route("OrderByUserID")]
-        //  public ActionResult<List<OrderCityNameproducts>> GetAllForUser(string ID)
-        public ActionResult<OrderCityNameproducts> GetAllForUser(string ID)
+        //public ActionResult<OrderCityNameproducts> GetAllForUser(string ID)
+        public ActionResult<List<OrderCityNameproducts>> GetAllForUser(string ID)
         {
             var Orders = _orderManager.OrderByUserID(ID);//ToList();
             if (Orders == null) { return NoContent(); }

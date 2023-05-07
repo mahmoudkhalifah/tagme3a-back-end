@@ -213,8 +213,8 @@ namespace tagme3a_back_end.BL.Managers
             return null;
         }
 
-        // public IEnumerable<OrderCityNameproducts> OrderByUserID(string ID)///
-        public OrderCityNameproducts OrderByUserID(string ID)
+        public IEnumerable<OrderCityNameproducts> OrderByUserID(string ID)
+        //public OrderCityNameproducts OrderByUserID(string ID)
         {
             var Orders = _orderRepo.GetordersByUserID(ID);
             if (Orders == null)
@@ -245,7 +245,7 @@ namespace tagme3a_back_end.BL.Managers
 
                 })
 
-            }).Last();
+            }).ToList();
         }
     
        //Details
