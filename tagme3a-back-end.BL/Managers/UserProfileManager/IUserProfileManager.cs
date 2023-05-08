@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using tagme3a_back_end.DAL.Data.Models;
 
-namespace tagme3a_back_end.DAL.RepoInterfaces
+namespace tagme3a_back_end.BL.Managers.ProfileManager
 {
-    public interface IUserProfileRepo
+    public interface IUserProfileManager
     {
+        Task<User> getUserbyId (string UserId);
 
-        Task<User>  GetUserById(string userId);
         Task UpdateUser(User user , string UserId);
-
     }
 }
