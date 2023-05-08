@@ -27,7 +27,8 @@ namespace tagme3a_back_end.DAL.Repos
         public IEnumerable<Product> GetCategoriesWithProductsByPrice(int categoryId, decimal maxPrice)
         {
             return context.Products
-                .Where(c => c.CategoryID == categoryId && c.Price-c.Discount < maxPrice)
+                .Where(p => p.CategoryID == categoryId && p.Price-p.Discount < maxPrice && p.UnitInStocks > 0)
+                .Include(p=>p.ProductImages)
                 .OrderBy(c=>c.Price);
         }
     }

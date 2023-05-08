@@ -78,5 +78,23 @@ namespace tagme3a_back_end.BL.Managers.address
         {
             return _addressRepo.GetAddressIdbyUID(UID);
         }
+
+        public IEnumerable<AddressReadDTO> GetAddress(string id)
+        {
+            var adresses = _addressRepo.getAll().Where(e=>e.UserId==id).ToList();
+
+            return adresses.Select(a => new AddressReadDTO
+            {
+                Id = a.AddressId,
+                ApartementNumber = a.ApartementNumber,
+                Area = a.Area,
+                CityName = a.City?.Name ?? "",
+                FloorNumber = a.Floornumber,
+                NearestLandmark = a.NearestLandmark,
+                StreetName = a.StreetName,
+                ZipCode = a.ZipCode,
+
+            });
+        }
     }
 }

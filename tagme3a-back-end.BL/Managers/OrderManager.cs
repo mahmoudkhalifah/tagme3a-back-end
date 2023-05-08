@@ -142,7 +142,9 @@ namespace tagme3a_back_end.BL.Managers
              new ProductOrdersReadInOrderDTO
              {
                  ProductName = po.Product.Name,
-                 Quantiy = po.Quantiy
+                 Quantiy = po.Quantiy,
+                  ProductId=po.ProductId,
+                   Price=po.Product.Price
              }).ToList();
 
             return productOrders;
@@ -178,10 +180,13 @@ namespace tagme3a_back_end.BL.Managers
             {
                AddressID= dTO.AddressID,
                Bill= dTO.Bill,
+
                OrderDate= dTO.OrderDate,
                ShippingDate= dTO.ShippingDate,
                ArrivalDate= dTO.ArrivalDate,
+
                OrderState = dTO.OrderState,
+
                PayMethod = dTO.PayMethod,
                UserId = dTO.UserId
             };
@@ -209,6 +214,7 @@ namespace tagme3a_back_end.BL.Managers
         }
 
         public IEnumerable<OrderCityNameproducts> OrderByUserID(string ID)
+        //public OrderCityNameproducts OrderByUserID(string ID)
         {
             var Orders = _orderRepo.GetordersByUserID(ID);
             if (Orders == null)
@@ -232,7 +238,9 @@ namespace tagme3a_back_end.BL.Managers
                 .Select(p => new ProductOrdersReadInOrderDTO
                 {
                     ProductName = p.Product.Name,
-                    Quantiy = p.Quantiy
+                    Quantiy = p.Quantiy,
+                     Price=p.Product.Price,
+                      ProductId=p.ProductId
 
 
                 })
@@ -258,6 +266,13 @@ namespace tagme3a_back_end.BL.Managers
                 PayMethod = order.PayMethod.ToString(),
                 UserId= order.UserId
             };
+
+        }
+
+        public int GetOrderLastID(string UID)
+        {
+           var orderID=_orderRepo.GetOrderLastID(UID);
+            return orderID;
 
         }
     }

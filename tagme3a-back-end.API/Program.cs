@@ -18,6 +18,8 @@ using tagme3a_back_end.BL.Managers.DashboardManager;
 using tagme3a_back_end.BL.Managers.JourneyModeManager;
 using Microsoft.AspNetCore.StaticFiles;
 using tagme3a_back_end.BL.Managers.SearchManager;
+using tagme3a_back_end.BL.Managers.PrpductOrderManager;
+using tagme3a_back_end.BL.Payment;
 using tagme3a_back_end.BL.Managers.ProfileManager;
 using tagme3a_back_end.BL.Managers.UserProfileManager;
 
@@ -179,6 +181,16 @@ namespace tagme3a_back_end.API
 
             builder.Services.AddScoped<IPCManager , PCManager>();
 
+            #endregion
+
+            #region Payment
+          //  builder.Services.AddScoped<IPaymentService, PaymentService>();
+            #endregion
+
+
+            #region PRoductOrder & Manager
+            builder.Services.AddScoped<IProductOrderRepo, ProductOrderRepo>();
+            builder.Services.AddScoped<IPOManager, POManager>();
             #endregion
 
 

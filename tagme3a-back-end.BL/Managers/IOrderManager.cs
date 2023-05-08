@@ -26,8 +26,10 @@ namespace tagme3a_back_end.BL.Managers
 
         OrderCityNameproducts CityNameproducts(int id);
         IEnumerable<OrderCityNameproducts> OrderByUserID(string ID);
-
+        //public OrderCityNameproducts OrderByUserID(string ID);
         public GetOrderByID GetOrderById(int id);
+
+        public int GetOrderLastID(string UID);
     }
 
 }

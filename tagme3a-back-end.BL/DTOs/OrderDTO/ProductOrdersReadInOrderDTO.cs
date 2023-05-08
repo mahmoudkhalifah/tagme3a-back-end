@@ -11,5 +11,9 @@ namespace tagme3a_back_end.BL.DTOs.OrderDTO
     {
         public string ProductName { get; set; } = string.Empty;
         public int Quantiy { get; set; } = 0;
+        public int ProductId { get; set; }
+        public decimal Price { get; set; }
+
+
     }
 }
