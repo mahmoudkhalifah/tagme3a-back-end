@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.StaticFiles;
 using tagme3a_back_end.BL.Managers.SearchManager;
 using tagme3a_back_end.BL.Managers.PrpductOrderManager;
 using tagme3a_back_end.BL.Payment;
+using tagme3a_back_end.BL.Managers.ProfileManager;
+using tagme3a_back_end.BL.Managers.UserProfileManager;
 
 namespace tagme3a_back_end.API
 {
@@ -146,6 +148,13 @@ namespace tagme3a_back_end.API
 
             #endregion
 
+
+            #region UserProfileRepo
+
+            builder.Services.AddScoped<IUserProfileRepo, UserProfileRepo>();
+
+            #endregion
+
             #region OrderManager
 
             builder.Services.AddScoped<IOrderManager, OrderManager>();
@@ -187,6 +196,12 @@ namespace tagme3a_back_end.API
 
             #region SearchManager
             builder.Services.AddScoped<ISearchManager, SearchManager>();
+
+            #endregion
+
+
+            #region USerProfileManager
+            builder.Services.AddScoped<IUserProfileManager, UserProfileManager>();
 
             #endregion
 
