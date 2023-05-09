@@ -14,7 +14,7 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
         IEnumerable<ProductReadDto> GetAllProductAdmin();
 
         public void AddProduct (ProductPostDto product);
-
+        public ProductWithRelationsDTO GetProductWithPcOrderById(int id);
 
 
         public void UpdateProduct (ProductPutDto product , int id);

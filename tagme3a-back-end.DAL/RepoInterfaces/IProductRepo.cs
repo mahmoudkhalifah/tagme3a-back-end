@@ -11,7 +11,7 @@ namespace tagme3a_back_end.DAL.RepoInterfaces
     {
         IEnumerable<Product> GetAllProducts();
         public Product GetProductById(int id);
-
+        public Product GetProductWithPcOrderById(int id);
         public void AddProduct(Product product);
 
         public void UpdateProduct(Product product , int id);

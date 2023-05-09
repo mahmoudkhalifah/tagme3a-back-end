@@ -48,8 +48,14 @@ namespace tagme3a_back_end.DAL.Repos
         {
             return _context.Set<Product>().Include(p=>p.ProductImages);
         }
-
         public Product GetProductById(int id)
+        {
+            Product? product = _context.Products.Include(p=>p.ProductPCs)
+                .Include(p=>p.ProductOrders)
+                .FirstOrDefault(x=>x.Id == id);
+            return product;
+        }
+        public Product GetProductWithPcOrderById(int id)
         {
             Product? prd = _context.Products.Include(p=>p.ProductImages).FirstOrDefault(p=>p.Id == id);
                 return prd;            

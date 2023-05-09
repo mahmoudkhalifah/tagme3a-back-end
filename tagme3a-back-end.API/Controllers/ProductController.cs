@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using tagme3a_back_end.BL.DTOs.Product;
 using tagme3a_back_end.BL.Managers.ProductManager;
 
@@ -77,19 +79,14 @@ namespace tagme3a_back_end.API.Controllers
         [Route("{id}")]
         public ActionResult deleteProduct(int id)
         {
-            var getPrd = _productManager.getProductbyId(id);
-            if (getPrd is not null)
-            {
-                _productManager.DeleteProduct(id);
-                return NoContent();
-
-            }
-            else
-            {
+            var getPrd = _productManager.GetProductWithPcOrderById(id);
+            if (getPrd is null)
                 return NotFound();
-            }
+            if(getPrd.NumPCs == 0 && getPrd.NumOrders == 0)
+                return BadRequest();
+            _productManager.DeleteProduct(id);
+            return NoContent();
+
         }
-
-
     }
 }

@@ -54,12 +54,15 @@ namespace tagme3a_back_end.API.Controllers
         [Route("{id}")]
         public ActionResult DeleteById(int id)
         {
-            var brandToDelete = brandManager.GetDetails(id);
+            var brandToDelete = brandManager.GetBrandWithProducts(id);
             if (brandToDelete is null)
             {
                 return NotFound();
             }
+            if (brandToDelete.products.Count() == 0)
+                return BadRequest();
             brandManager.DeleteBrand(id);
+             
             return NoContent();
         }
         [Authorize(Constants.Authorize.Admin)]
