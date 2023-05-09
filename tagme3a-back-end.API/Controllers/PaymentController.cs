@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using Stripe;
 using tagme3a_back_end.BL.Managers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace tagme3a_back_end.API.Controllers
 {
@@ -15,6 +16,7 @@ namespace tagme3a_back_end.API.Controllers
         {
             this.config = config;
         }
+        [Authorize(Constants.Authorize.User)]
         [HttpPost("create-payment-intent")]
         public async Task<IActionResult> CreatePaymentIntent([FromBody] int amount)
         {

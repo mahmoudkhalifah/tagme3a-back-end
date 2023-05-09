@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.DTOs.Category;
 using tagme3a_back_end.BL.Managers;
@@ -15,6 +16,7 @@ namespace tagme3a_back_end.API.Controllers
         {
             this.categoryManager = categoryManager;
         }
+        [Authorize(Constants.Authorize.Admin)]
         [HttpPost]
         public ActionResult addCategory(CategoryInsertDTO categoryDTO)
         {//
@@ -42,6 +44,7 @@ namespace tagme3a_back_end.API.Controllers
             if (category == null) { return NotFound(); }
             return Ok(category);
         }
+        [Authorize(Constants.Authorize.Admin)]
         [HttpDelete]
         [Route("{id}")]
         public ActionResult DeleteById(int id)
@@ -54,6 +57,7 @@ namespace tagme3a_back_end.API.Controllers
             categoryManager.DeleteCategory(id);
             return NoContent();
         }
+        [Authorize(Constants.Authorize.Admin)]
         [HttpPut("{id}")]
         public IActionResult PutCategory(int id, CategoryInsertDTO dto)
         {
