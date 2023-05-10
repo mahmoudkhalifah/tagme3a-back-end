@@ -22,6 +22,9 @@ using tagme3a_back_end.BL.Managers.PrpductOrderManager;
 using tagme3a_back_end.BL.Payment;
 using tagme3a_back_end.BL.Managers.ProfileManager;
 using tagme3a_back_end.BL.Managers.UserProfileManager;
+using System.Security.Cryptography.X509Certificates;
+using Azure.Identity;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 
 namespace tagme3a_back_end.API
 {
@@ -31,11 +34,47 @@ namespace tagme3a_back_end.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //if (builder.Environment.IsProduction())
+            //{
+            //    using var x509Store = new X509Store(StoreLocation.CurrentUser);
+
+            //    x509Store.Open(OpenFlags.ReadOnly);
+
+            //    var x509Certificate = x509Store.Certificates
+            //        .Find(
+            //            X509FindType.FindByThumbprint,
+            //            builder.Configuration["AzureKeyVaultSettings:AzureADCertThumbprint"],
+            //            validOnly: false)
+            //        .OfType<X509Certificate2>()
+            //        .Single();
+
+            //    builder.Configuration.AddAzureKeyVault(
+            //        new Uri($"https://{builder.Configuration["AzureKeyVaultSettings:KeyVaultName"]}.vault.azure.net/"),
+            //        new ClientCertificateCredential(
+            //            builder.Configuration["AzureKeyVaultSettings:AzureADDirectoryId"],
+            //            builder.Configuration["AzureKeyVaultSettings:AzureADApplicationId"],
+            //            x509Certificate));
+            //}
+            builder.Host.ConfigureAppConfiguration((context, config) => {
+                var settings = config.Build();
+                var keyVaultURL = $"https://{builder.Configuration["AzureKeyVaultSettings:KeyVaultName"]}.vault.azure.net/";
+                var keyVaultClientId = builder.Configuration["AzureKeyVaultSettings:AzureADApplicationId"];
+                var keyVaultClientSecret = builder.Configuration["AzureKeyVaultSettings:AzureADCertThumbprint"];
+                config.AddAzureKeyVault(keyVaultURL, keyVaultClientId, keyVaultClientSecret, new DefaultKeyVaultSecretManager());
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.ConfigureSwaggerGen(setup =>
+            {
+                setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Tagme3a API",
+                    Version = "v1"
+                });
+            });
 
             #region Cors
             var corsPolicy = "AllowAll";
@@ -215,11 +254,11 @@ namespace tagme3a_back_end.API
 
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+           //}
             app.UseCors(corsPolicy);
 
             app.UseHttpsRedirection();

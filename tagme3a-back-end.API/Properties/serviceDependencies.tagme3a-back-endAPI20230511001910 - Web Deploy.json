@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/tagme3a-back-endAPIapi/apis/tagme3a-back-end",
+      "type": "apis.azure"
+    }
+  }
+}
