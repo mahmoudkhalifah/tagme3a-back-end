@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.DTOs.PC;
 using tagme3a_back_end.BL.Managers.PCManager;
@@ -38,6 +39,8 @@ namespace tagme3a_back_end.API.Controllers
 
 
         [HttpPost]
+        [Authorize(Constants.Authorize.Admin)]
+
         public ActionResult<bool> InsertPc(PCInsertDTO data)
         {
             return _pcManager.InsertPC(data);
@@ -45,6 +48,7 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpPost]
         [Route("InsertProductPc")]
+        [Authorize(Constants.Authorize.Admin)]
 
         public ActionResult<bool> InsertPrdPc(PrdPCInsertDTO prd)
         {
@@ -53,14 +57,17 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpPut]
         [Route("UpdateProductPc/{id}")]
+        [Authorize(Constants.Authorize.Admin)]
 
-		public ActionResult<bool> UpdatePrdPc(int id , PrdPCUpdateDTO prd)
+        public ActionResult<bool> UpdatePrdPc(int id , PrdPCUpdateDTO prd)
 		{
 			return _pcManager.UpdatePrdPC(id, prd);
 		}
 
 		[HttpPut]
         [Route("{id}")]
+        [Authorize(Constants.Authorize.Admin)]
+
         public ActionResult<bool> UpdatePc(int id , PCInsertDTO data)
         {
             return _pcManager.UpdatePC(id, data);
@@ -68,6 +75,8 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Constants.Authorize.Admin)]
+
         public ActionResult<bool> DeletePc(int id) 
         {
             return _pcManager.DeletePC(id);
@@ -75,6 +84,8 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpDelete]
         [Route("DeletePrdPC/{id}")]
+        [Authorize(Constants.Authorize.Admin)]
+
 
         public ActionResult<bool> DeletePrdPC(int id , PrdPcDeleteDTO prdpc)
         {

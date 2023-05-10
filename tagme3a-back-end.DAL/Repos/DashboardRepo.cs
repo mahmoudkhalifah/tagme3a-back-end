@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tagme3a_back_end.DAL.Data.Context;
+using tagme3a_back_end.DAL.Data.Models;
 using tagme3a_back_end.DAL.RepoInterfaces;
 
 namespace tagme3a_back_end.DAL.Repos
@@ -21,9 +22,9 @@ namespace tagme3a_back_end.DAL.Repos
            return _context.Categories.Count();
         }
 
-        public int numberOfOrders()
+        public IEnumerable<Order> ordersStates()
         {
-            return _context.Orders.Count();
+            return _context.Orders.ToList();
 
         }
 
