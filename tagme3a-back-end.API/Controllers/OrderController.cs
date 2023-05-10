@@ -105,7 +105,7 @@ namespace tagme3a_back_end.API.Controllers
 
 
         [HttpPost]
-        [Authorize(Constants.Authorize.Admin)]
+        [Authorize(Constants.Authorize.User)]
         public ActionResult Post (OrderPostDTO orderPost)
         {           
             _orderManager.postOrder(orderPost);
