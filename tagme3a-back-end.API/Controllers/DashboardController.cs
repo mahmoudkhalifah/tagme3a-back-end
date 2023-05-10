@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.DTOs.Product;
 using tagme3a_back_end.BL.Managers.DashboardManager;
@@ -16,12 +17,15 @@ namespace tagme3a_back_end.API.Controllers
             _dashboardManager = dashboardManager;
         }
 
+        [Authorize(Constants.Authorize.Admin)]
+
         [HttpGet("numOfProducts")]
         public ActionResult<int> NumOfProducts()
         {
             return _dashboardManager.getAllNumProducts();
         }
 
+        [Authorize(Constants.Authorize.Admin)]
 
         [HttpGet("numOfCategories")]
         public ActionResult<int> NumOfCategories()
@@ -29,11 +33,15 @@ namespace tagme3a_back_end.API.Controllers
             return _dashboardManager.getAllNumCategories();
         }
 
+        [Authorize(Constants.Authorize.Admin)]
+
         [HttpGet("numOfOrders")]
         public ActionResult<int> NumOfOrders()
         {
             return _dashboardManager.getAllNumOrders();
         }
+
+        [Authorize(Constants.Authorize.Admin)]
 
         [HttpGet("totalEarnings")]
         public ActionResult<decimal> TotalEarnings()
