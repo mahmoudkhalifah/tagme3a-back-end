@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using tagme3a_back_end.BL.DTOs.Brand;
@@ -16,6 +17,7 @@ namespace tagme3a_back_end.API.Controllers
         {
             this.userProductInCartManager = userProductInCartManager;
         }
+        [Authorize(Constants.Authorize.User)]
         [HttpGet]
         public ActionResult GetDetailsOfCartForSpecificUser(string UserId)
         {
@@ -23,13 +25,21 @@ namespace tagme3a_back_end.API.Controllers
             if (t == null) { return NotFound(); }
             return Ok(t);
         }
+        [Authorize(Constants.Authorize.User)]
         [HttpPost]
         public ActionResult AddProductInCart(UserProductInCartInsertDTO DTO)
         {
-            userProductInCartManager.AddProductInCart(DTO);
-            return NoContent();
+            try
+            {
+                userProductInCartManager.AddProductInCart(DTO);
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
-
+        [Authorize(Constants.Authorize.User)]
         [HttpPost]
         [Route("{userId}")]
         public ActionResult AddProductsInCart(List<UserPCInCartInsertDTO> userPCInCarts, string userId)
@@ -37,7 +47,7 @@ namespace tagme3a_back_end.API.Controllers
             userProductInCartManager.AddLstProductInCart(userPCInCarts, userId);
             return NoContent();
         }
-
+        [Authorize(Constants.Authorize.User)]
         [HttpDelete]
         [Route("{UserId}/{ProductId}")]
         public ActionResult DeleteById(string UserId, int ProductId)
@@ -50,16 +60,16 @@ namespace tagme3a_back_end.API.Controllers
             userProductInCartManager.DeleteProductInCart(UserId,ProductId);
             return NoContent();
         }
-
+        [Authorize(Constants.Authorize.User)]
         [HttpGet]
         [Route("GetUserCartPrdName")]
-
         public ActionResult <List<UserCartPrdName>> GetUserCartPrdName(string UserId )
         {
             var Carts = userProductInCartManager.GetUserCartPrdName(UserId).ToList();
             if (Carts == null) { return NoContent(); }
             return Ok(Carts);
         }
+        [Authorize(Constants.Authorize.User)]
         [HttpPut]
         [Route("UpdateCard")]
         public ActionResult UpdateCard (int PID, String UID, UserProductInCartInsertDTO UserProductInCartInsertDTO)
@@ -67,7 +77,7 @@ namespace tagme3a_back_end.API.Controllers
             userProductInCartManager.UpdateCard(PID, UID, UserProductInCartInsertDTO);
             return Ok();
         }
-
+        [Authorize(Constants.Authorize.User)]
         [HttpDelete]
         [Route("DeleteCarts")]
         public ActionResult DeleteCards(String UID)

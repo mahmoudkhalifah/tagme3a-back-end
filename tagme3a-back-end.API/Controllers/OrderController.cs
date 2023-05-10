@@ -69,6 +69,7 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpGet]
         [Route("OrderCityNameproducts")]
+        [Authorize(Constants.Authorize.Admin)]
         public ActionResult<OrderCityNameproducts> GetCityNameproducts(int id)
         {
             var Orders = _orderManager.CityNameproducts(id);
@@ -92,6 +93,7 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpGet]
         [Route("OrderByUserID")]
+        [Authorize(Constants.Authorize.User)]
         //public ActionResult<OrderCityNameproducts> GetAllForUser(string ID)
         public ActionResult<List<OrderCityNameproducts>> GetAllForUser(string ID)
         {
@@ -103,6 +105,7 @@ namespace tagme3a_back_end.API.Controllers
 
 
         [HttpPost]
+        [Authorize(Constants.Authorize.Admin)]
         public ActionResult Post (OrderPostDTO orderPost)
         {           
             _orderManager.postOrder(orderPost);
@@ -111,6 +114,7 @@ namespace tagme3a_back_end.API.Controllers
 
 
         [HttpPut]
+        [Authorize(Constants.Authorize.Admin)]
         public IActionResult Put(int id, OrderPutDTO orderPutDTO)
         {
             return Ok(_orderManager.UpdateOrder(id, orderPutDTO));
