@@ -52,7 +52,7 @@ namespace tagme3a_back_end.API.Controllers
             var categortToDelete = categoryManager.GetProductsWithCategory(id);
             if (categortToDelete is null)
                 return NotFound();
-            if(categortToDelete.products.Count() == 0)
+            if(categortToDelete.products.Count() != 0)
                 return BadRequest();
             categoryManager.DeleteCategory(id);
             return NoContent();

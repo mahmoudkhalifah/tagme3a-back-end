@@ -59,7 +59,7 @@ namespace tagme3a_back_end.API.Controllers
             {
                 return NotFound();
             }
-            if (brandToDelete.products.Count() == 0)
+            if (brandToDelete.products.Count() != 0)
                 return BadRequest();
             brandManager.DeleteBrand(id);
              

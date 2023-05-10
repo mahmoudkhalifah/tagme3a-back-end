@@ -8,7 +8,7 @@ namespace tagme3a_back_end.DAL.Data.Models
 {
     public enum PayMethod
     {
-        Cash,
-        Visa
+        Cash=1,
+        Visa=2
     }
 }

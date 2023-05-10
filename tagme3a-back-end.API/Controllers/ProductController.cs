@@ -82,7 +82,7 @@ namespace tagme3a_back_end.API.Controllers
             var getPrd = _productManager.GetProductWithPcOrderById(id);
             if (getPrd is null)
                 return NotFound();
-            if(getPrd.NumPCs == 0 && getPrd.NumOrders == 0)
+            if(getPrd.NumPCs != 0 || getPrd.NumOrders != 0)
                 return BadRequest();
             _productManager.DeleteProduct(id);
             return NoContent();
