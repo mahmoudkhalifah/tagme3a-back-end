@@ -25,7 +25,7 @@ namespace tagme3a_back_end.API.Controllers
             var options = new PaymentIntentCreateOptions
             {
                 Amount = amount,
-                Currency = "usd",
+                Currency = "EGP",
                 PaymentMethodTypes = new List<string> { "card" },
             };
 
