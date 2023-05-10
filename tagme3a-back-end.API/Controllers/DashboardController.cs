@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tagme3a_back_end.BL.DTOs.OrderDTO;
 using tagme3a_back_end.BL.DTOs.Product;
 using tagme3a_back_end.BL.Managers.DashboardManager;
 using tagme3a_back_end.BL.Managers.ProductManager;
@@ -16,12 +18,15 @@ namespace tagme3a_back_end.API.Controllers
             _dashboardManager = dashboardManager;
         }
 
+        [Authorize(Constants.Authorize.Admin)]
+
         [HttpGet("numOfProducts")]
         public ActionResult<int> NumOfProducts()
         {
             return _dashboardManager.getAllNumProducts();
         }
 
+        [Authorize(Constants.Authorize.Admin)]
 
         [HttpGet("numOfCategories")]
         public ActionResult<int> NumOfCategories()
@@ -29,11 +34,15 @@ namespace tagme3a_back_end.API.Controllers
             return _dashboardManager.getAllNumCategories();
         }
 
-        [HttpGet("numOfOrders")]
-        public ActionResult<int> NumOfOrders()
+        [Authorize(Constants.Authorize.Admin)]
+
+        [HttpGet("OrderStats")]
+        public ActionResult<OrderStatisticsDTO> OrderStats()
         {
-            return _dashboardManager.getAllNumOrders();
+            return _dashboardManager.GetOrders();
         }
+
+        [Authorize(Constants.Authorize.Admin)]
 
         [HttpGet("totalEarnings")]
         public ActionResult<decimal> TotalEarnings()

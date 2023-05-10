@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.Managers.ProfileManager;
 using tagme3a_back_end.BL.Managers.UserProfileManager;
@@ -26,6 +27,8 @@ namespace tagme3a_back_end.API.Controllers
 
 
         }
+
+        [Authorize(Constants.Authorize.User)]
 
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(string userId, User user)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.DTOs.Address;
 using tagme3a_back_end.BL.Managers.address;
@@ -17,11 +18,15 @@ namespace tagme3a_back_end.API.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Constants.Authorize.User)]
+
         public ActionResult<List<AddressReadDTO>> GetAll()
         {
             return _addressManager.GetAll().ToList();
         }
+
         [HttpPost]
+        [Authorize(Constants.Authorize.User)]
         public ActionResult AddAddress(AddressAddDTO address)
         {
             if (!_addressManager.AddAddress(address))
@@ -32,6 +37,8 @@ namespace tagme3a_back_end.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Constants.Authorize.User)]
+
         public ActionResult UpdateAddress(int id , AddressAddDTO addressAddDTO)
         {
             if(!_addressManager.UpdateAddress(id, addressAddDTO))
@@ -56,6 +63,7 @@ namespace tagme3a_back_end.API.Controllers
 
         [HttpGet]
         [Route("GetAddressesByUID")]
+        //[Authorize(Constants.Authorize.User)]
 
         public IActionResult GetAddressesByUID(string ID)
         {
