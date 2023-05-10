@@ -11,6 +11,7 @@ namespace tagme3a_back_end.BL.Managers.PCManager
     public interface IPCManager
     {
         IEnumerable<PCReadDTO> GetAll();
+        IEnumerable<PCReadDTO> GetAllForAdmin();
         public PCReadDetailsDTO GetDetails(int id);
         public void CalcPrice(decimal price,int quantity, int pcId);
         public bool InsertPC(PCInsertDTO pc);

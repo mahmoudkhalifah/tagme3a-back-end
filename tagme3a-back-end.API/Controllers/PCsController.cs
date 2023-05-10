@@ -22,7 +22,13 @@ namespace tagme3a_back_end.API.Controllers
         {
             return _pcManager.GetAll().ToList();
         }
-
+        [HttpGet]
+        [Route("GetForAdmin")]
+        public ActionResult<List<PCReadDTO>> GetAllForAdmin()
+        {
+            return _pcManager.GetAllForAdmin().ToList();
+        }
+        
         [HttpGet]
         [Route("GetAllPrdPc")]
         public ActionResult<List<PrdPCInsertDTO>> GetAllPrdPc()

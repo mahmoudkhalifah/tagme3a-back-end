@@ -41,7 +41,8 @@ namespace tagme3a_back_end.DAL.Repos
         public IEnumerable<PC> GetAll()
         {
             return _context.PCs.Include(p=>p.ProductsPC).ThenInclude(p=>p.Product)
-                .ThenInclude(m=>m.ProductImages).ToList();
+                .ThenInclude(m=>m.ProductImages)
+                .ToList();
         }
 
         public PC? GetDetails(int id)

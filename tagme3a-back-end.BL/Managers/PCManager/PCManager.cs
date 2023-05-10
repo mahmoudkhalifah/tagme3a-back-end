@@ -30,6 +30,34 @@ namespace tagme3a_back_end.BL.Managers.PCManager
                 return new List<PCReadDTO>();
 
 
+            var result = pcs
+            .Where(pc => pc.ProductsPC.Count() > 0)
+            .Select(e => new PCReadDTO()
+            {
+                Id = e.PCId,
+                BundleName = e.BundleName,
+                Image = e.Image,
+                TotalPrice = e.TotalPrice,
+                products = e.ProductsPC.Select(p => new ProductReadInPCDTO()
+                {
+                    ProductId = p.Product.Id,
+                    Name = p.Product?.Name ?? "",
+                    Description = p.Product?.Description ?? "",
+                    //BrandName = p.Product?.Brand?.Name ?? "",
+                    //CategoryName = p.Product?.Category?.Name ?? "",
+                    quantitiy = p.Quantity
+                }).ToList()
+            }).ToList();
+            return result;
+        }
+
+        public IEnumerable<PCReadDTO> GetAllForAdmin()
+        {
+            var pcs = _pcRepo.GetAll();
+            if (pcs == null)
+                return new List<PCReadDTO>();
+
+
             var result = pcs.Select(e => new PCReadDTO()
             {
                 Id = e.PCId,
