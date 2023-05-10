@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tagme3a_back_end.BL.DTOs.OrderDTO;
 using tagme3a_back_end.BL.DTOs.Product;
 using tagme3a_back_end.BL.Managers.DashboardManager;
 using tagme3a_back_end.BL.Managers.ProductManager;
@@ -35,10 +36,10 @@ namespace tagme3a_back_end.API.Controllers
 
         [Authorize(Constants.Authorize.Admin)]
 
-        [HttpGet("numOfOrders")]
-        public ActionResult<int> NumOfOrders()
+        [HttpGet("OrderStats")]
+        public ActionResult<OrderStatisticsDTO> OrderStats()
         {
-            return _dashboardManager.getAllNumOrders();
+            return _dashboardManager.GetOrders();
         }
 
         [Authorize(Constants.Authorize.Admin)]
