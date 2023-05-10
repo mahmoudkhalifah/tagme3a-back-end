@@ -8,7 +8,7 @@ namespace tagme3a_back_end.DAL.Data.Models
 {
     public enum OrderState
     { 
-        Processing =1,
+        Processing=1,
         Delivered=2
     }
 }

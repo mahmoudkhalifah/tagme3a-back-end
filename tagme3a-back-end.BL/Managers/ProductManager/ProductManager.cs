@@ -49,7 +49,7 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
         {
            _productRepo.DeleteProduct(id);
         }
-
+        
         public IEnumerable<ProductReadDto> GetAllProduct()
         {
             var prds = _productRepo.GetAllProducts();
@@ -65,6 +65,17 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
                 ProductImages = p.ProductImages.Select(pi => Convert.ToBase64String(pi.Photo)).ToList(),
                 UnitInStocks = p.UnitInStocks
             });
+        }
+
+        public ProductWithRelationsDTO GetProductWithPcOrderById(int id)
+        {
+            Product product = _productRepo.GetProductWithPcOrderById(id);
+            return new ProductWithRelationsDTO()
+            {
+                Id = product.Id,
+                NumOrders = product.ProductOrders.Count(),
+                NumPCs = product.ProductPCs.Count(),
+            };
         }
 
         public IEnumerable<ProductReadDto> GetAllProduct(int brandId, int categoryId)
