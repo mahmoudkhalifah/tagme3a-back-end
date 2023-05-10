@@ -49,11 +49,11 @@ namespace tagme3a_back_end.API.Controllers
         [Route("{id}")]
         public ActionResult DeleteById(int id)
         {
-            var categortToDelete = categoryManager.GetDetails(id);
+            var categortToDelete = categoryManager.GetProductsWithCategory(id);
             if (categortToDelete is null)
-            {
                 return NotFound();
-            }
+            if(categortToDelete.products.Count() != 0)
+                return BadRequest();
             categoryManager.DeleteCategory(id);
             return NoContent();
         }
