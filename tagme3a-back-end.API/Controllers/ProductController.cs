@@ -22,9 +22,15 @@ namespace tagme3a_back_end.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult <List<ProductReadDto>> getAllProducts()
+        [Route("admin/products")]
+        public ActionResult<List<ProductReadDto>> getAllProductsAdmin()
         {
-            return _productManager.GetAllProduct().ToList();    
+            return _productManager.GetAllProductAdmin().ToList();
+        }
+        [HttpGet]
+        public ActionResult<List<ProductReadDto>> getAllProductsUser()
+        {
+            return _productManager.GetAllProduct().ToList();
         }
 
         [HttpGet]

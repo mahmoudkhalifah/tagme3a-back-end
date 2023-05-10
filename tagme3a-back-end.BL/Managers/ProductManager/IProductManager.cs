@@ -11,6 +11,7 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
     {
          IEnumerable<ProductReadDto> GetAllProduct(int brandId,int categoryId);
         IEnumerable<ProductReadDto> GetAllProduct();
+        IEnumerable<ProductReadDto> GetAllProductAdmin();
 
         public void AddProduct (ProductPostDto product);
 

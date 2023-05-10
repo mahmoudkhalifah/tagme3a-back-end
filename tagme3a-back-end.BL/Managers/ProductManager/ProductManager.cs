@@ -85,6 +85,23 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
             });
         }
 
+        public IEnumerable<ProductReadDto> GetAllProductAdmin()
+        {
+            var prds = _productRepo.GetAllProducts();
+            return prds.Select(p => new ProductReadDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CategoryID = p.CategoryID,//
+                Description = p.Description,
+                Discount = p.Discount,
+                Price = p.Price,
+                BrandID = p.BrandID,//
+                ProductImages = p.ProductImages.Select(pi => Convert.ToBase64String(pi.Photo)).ToList(),
+                UnitInStocks = p.UnitInStocks
+            });
+        }
+
         public ProductReadDto getProductbyId(int id)
         {
             var prd = _productRepo.GetProductById(id);

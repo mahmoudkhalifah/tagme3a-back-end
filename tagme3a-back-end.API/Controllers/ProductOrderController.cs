@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tagme3a_back_end.BL.Managers;
 using tagme3a_back_end.BL.Managers.PrpductOrderManager;
@@ -19,6 +20,7 @@ namespace tagme3a_back_end.API.Controllers
         }
         [HttpPost]
         [Route("AddProductOrder")]
+        [Authorize(Constants.Authorize.User)]
         public IActionResult AddProductOrder(string UID)
         {
             _pOManager.AddProductOrder(UID);
