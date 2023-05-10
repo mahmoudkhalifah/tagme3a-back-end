@@ -57,8 +57,8 @@ namespace tagme3a_back_end.DAL.Repos
         }
         public Product GetProductWithPcOrderById(int id)
         {
-            Product? prd = _context.Products.Include(p=>p.ProductImages).FirstOrDefault(p=>p.Id == id);
-                return prd;            
+            Product? prd = _context.Products.Include(p=>p.ProductPCs).Include(p=>p.ProductOrders).FirstOrDefault(p=>p.Id == id);
+            return prd;            
         }
 
         public int saveChanges()

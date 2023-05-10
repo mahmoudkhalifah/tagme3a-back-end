@@ -70,6 +70,8 @@ namespace tagme3a_back_end.BL.Managers.ProductManager
         public ProductWithRelationsDTO GetProductWithPcOrderById(int id)
         {
             Product product = _productRepo.GetProductWithPcOrderById(id);
+            if (product is null)
+                return null;
             return new ProductWithRelationsDTO()
             {
                 Id = product.Id,
