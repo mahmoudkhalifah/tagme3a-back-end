@@ -50,8 +50,7 @@ namespace tagme3a_back_end.DAL.Repos
         }
         public Product GetProductById(int id)
         {
-            Product? product = _context.Products.Include(p=>p.ProductPCs)
-                .Include(p=>p.ProductOrders)
+            Product? product = _context.Products.Include(p=>p.ProductImages)
                 .FirstOrDefault(x=>x.Id == id);
             return product;
         }
