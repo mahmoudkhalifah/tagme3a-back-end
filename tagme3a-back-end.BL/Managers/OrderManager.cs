@@ -144,7 +144,8 @@ namespace tagme3a_back_end.BL.Managers
                  ProductName = po.Product.Name,
                  Quantiy = po.Quantiy,
                   ProductId=po.ProductId,
-                   Price=po.Product.Price
+                   Price=po.Product.Price,
+                   Discount=po.Product.Discount
              }).ToList();
 
             return productOrders;

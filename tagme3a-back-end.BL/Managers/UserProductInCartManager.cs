@@ -36,7 +36,7 @@ namespace tagme3a_back_end.BL.Managers
             {
                 ProductId = userProduct.ProductId,
                 UserId = userId,
-                Quantity = userProduct.ProductId
+                Quantity = userProduct.Quantity
             }).ToList();
 
             userProductInCartRepo.AddLstProductInCart(userProductsInCart);
